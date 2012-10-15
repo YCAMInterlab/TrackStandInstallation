@@ -3,6 +3,7 @@
 #include "ofMain.h"
 #include "ofxTimeline.h"
 #include "TrackController.h"
+#include "ParticleRenderer.h"
 
 class testApp : public ofBaseApp{
   public:
@@ -22,5 +23,5 @@ class testApp : public ofBaseApp{
 	
 
 	TrackController trackController;
-	
+	ParticleRenderer particleRenderer;
 };
