@@ -2,27 +2,44 @@
 
 //--------------------------------------------------------------
 void testApp::setup(){
-	timeline.setup();
+	ofBackground(0);
+	ofEnableSmoothing();
+	
+	ofSetFrameRate(60);
+	ofToggleFullscreen();
+	
+	trackController.setup(4);
+	trackController.setWidth(ofGetScreenWidth()/2);
+	ofxTimeline::removeCocoaMenusFromGlut("TrackStand");
 }
 
 //--------------------------------------------------------------
 void testApp::update(){
 
+	vector<ofVec2f> positions;
+	positions.push_back( ofVec2f(mouseX, mouseY) );
+	trackController.setPositions(positions);
 }
 
 //--------------------------------------------------------------
 void testApp::draw(){
-	timeline.draw();
+	trackController.draw();
+	
 }
 
 //--------------------------------------------------------------
 void testApp::keyPressed(int key){
-
+	
 }
 
 //--------------------------------------------------------------
 void testApp::keyReleased(int key){
-
+	if(key == 'b'){
+		trackController.editMode = !trackController.editMode;
+	}
+	if(key == ' '){
+		trackController.togglePlayForTrackAtPoint(ofVec2f(mouseX,mouseY));
+	}
 }
 
 //--------------------------------------------------------------
