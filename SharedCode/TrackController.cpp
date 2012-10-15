@@ -46,9 +46,9 @@ void TrackController::draw(){
 }
 
 void TrackController::setPositions(vector<ofVec2f> positions){
-	ofRectangle totalDrawRect(0,0,0,0);
+	drawRect = ofRectangle(0,0,0,0);
 	for(int i = 0; i < timelines.size(); i++){
-		totalDrawRect = totalDrawRect.getUnion(timelines[i]->getDrawRect());
+		drawRect = drawRect.getUnion(timelines[i]->getDrawRect());
 	}
 	
 	for(int t = 0; t < timelines.size(); t++){

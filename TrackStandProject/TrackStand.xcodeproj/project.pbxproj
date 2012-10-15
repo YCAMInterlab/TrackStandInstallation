@@ -168,6 +168,9 @@
 		E740BBB6162C07BD0008864A /* libopencv_ts231.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E740BB3B162C07BC0008864A /* libopencv_ts231.a */; };
 		E740BBB7162C07BD0008864A /* libopencv_video231.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E740BB3C162C07BC0008864A /* libopencv_video231.a */; };
 		E740BBB8162C07BD0008864A /* libzlib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E740BB3E162C07BC0008864A /* libzlib.a */; };
+		E740BBBE162C08440008864A /* ofxTLDepthImageSequence.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E740BBBA162C08440008864A /* ofxTLDepthImageSequence.cpp */; };
+		E740BBBF162C08440008864A /* ofxTLVideoDepthAlignmentScrubber.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E740BBBC162C08440008864A /* ofxTLVideoDepthAlignmentScrubber.cpp */; };
+		E740BBDD162C13070008864A /* ofxGameCamera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E740BBD4162C13070008864A /* ofxGameCamera.cpp */; };
 		E761F4D81622CA3D00029E43 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E761F4D71622CA3D00029E43 /* Accelerate.framework */; };
 		E761F6DC1622CC7900029E43 /* ofxMSATimer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E761F4F51622CC7600029E43 /* ofxMSATimer.cpp */; };
 		E761F6DF1622CC7900029E43 /* ofxTextInputField.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E761F5091622CC7600029E43 /* ofxTextInputField.cpp */; };
@@ -544,6 +547,12 @@
 		E740BB3C162C07BC0008864A /* libopencv_video231.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libopencv_video231.a; sourceTree = "<group>"; };
 		E740BB3D162C07BC0008864A /* libsorder.make */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = libsorder.make; sourceTree = "<group>"; };
 		E740BB3E162C07BC0008864A /* libzlib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libzlib.a; sourceTree = "<group>"; };
+		E740BBBA162C08440008864A /* ofxTLDepthImageSequence.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxTLDepthImageSequence.cpp; sourceTree = "<group>"; };
+		E740BBBB162C08440008864A /* ofxTLDepthImageSequence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxTLDepthImageSequence.h; sourceTree = "<group>"; };
+		E740BBBC162C08440008864A /* ofxTLVideoDepthAlignmentScrubber.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxTLVideoDepthAlignmentScrubber.cpp; sourceTree = "<group>"; };
+		E740BBBD162C08440008864A /* ofxTLVideoDepthAlignmentScrubber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxTLVideoDepthAlignmentScrubber.h; sourceTree = "<group>"; };
+		E740BBD4162C13070008864A /* ofxGameCamera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxGameCamera.cpp; sourceTree = "<group>"; };
+		E740BBD5162C13070008864A /* ofxGameCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxGameCamera.h; sourceTree = "<group>"; };
 		E761F4D71622CA3D00029E43 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = /System/Library/Frameworks/Accelerate.framework; sourceTree = "<absolute>"; };
 		E761F4F51622CC7600029E43 /* ofxMSATimer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxMSATimer.cpp; sourceTree = "<group>"; };
 		E761F4F61622CC7600029E43 /* ofxMSATimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxMSATimer.h; sourceTree = "<group>"; };
@@ -819,6 +828,7 @@
 		BB4B014C10F69532006C3DED /* addons */ = {
 			isa = PBXGroup;
 			children = (
+				E740BBC0162C13070008864A /* ofxGameCamera */,
 				E740B8B0162BE33E0008864A /* ofxCv */,
 				E740B816162BE3220008864A /* ofxRGBDepth */,
 				E761F4E21622CC7500029E43 /* ofxMSATimer */,
@@ -915,6 +925,7 @@
 		E740B816162BE3220008864A /* ofxRGBDepth */ = {
 			isa = PBXGroup;
 			children = (
+				E740BBB9162C08440008864A /* ofxTimeline */,
 				E740B866162BE3220008864A /* src */,
 			);
 			name = ofxRGBDepth;
@@ -1482,6 +1493,36 @@
 			path = win_cb;
 			sourceTree = "<group>";
 		};
+		E740BBB9162C08440008864A /* ofxTimeline */ = {
+			isa = PBXGroup;
+			children = (
+				E740BBBA162C08440008864A /* ofxTLDepthImageSequence.cpp */,
+				E740BBBB162C08440008864A /* ofxTLDepthImageSequence.h */,
+				E740BBBC162C08440008864A /* ofxTLVideoDepthAlignmentScrubber.cpp */,
+				E740BBBD162C08440008864A /* ofxTLVideoDepthAlignmentScrubber.h */,
+			);
+			name = ofxTimeline;
+			path = couples/ofxTimeline;
+			sourceTree = "<group>";
+		};
+		E740BBC0162C13070008864A /* ofxGameCamera */ = {
+			isa = PBXGroup;
+			children = (
+				E740BBD3162C13070008864A /* src */,
+			);
+			name = ofxGameCamera;
+			path = ../../../addons/ofxGameCamera;
+			sourceTree = "<group>";
+		};
+		E740BBD3162C13070008864A /* src */ = {
+			isa = PBXGroup;
+			children = (
+				E740BBD4162C13070008864A /* ofxGameCamera.cpp */,
+				E740BBD5162C13070008864A /* ofxGameCamera.h */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
 		E761F4E21622CC7500029E43 /* ofxMSATimer */ = {
 			isa = PBXGroup;
 			children = (
@@ -1987,6 +2028,9 @@
 				E740BA0C162BE3400008864A /* Utilities.cpp in Sources */,
 				E740BA0D162BE3400008864A /* Wrappers.cpp in Sources */,
 				E740BA44162BE4830008864A /* TrackController.cpp in Sources */,
+				E740BBBE162C08440008864A /* ofxTLDepthImageSequence.cpp in Sources */,
+				E740BBBF162C08440008864A /* ofxTLVideoDepthAlignmentScrubber.cpp in Sources */,
+				E740BBDD162C13070008864A /* ofxGameCamera.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

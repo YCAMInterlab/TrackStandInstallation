@@ -4,6 +4,8 @@
 #include "ofxTimeline.h"
 #include "TrackController.h"
 #include "ParticleRenderer.h"
+#include "ofxTLDepthImageSequence.h"
+#include "ofxGameCamera.h"
 
 class testApp : public ofBaseApp{
   public:
@@ -20,8 +22,16 @@ class testApp : public ofBaseApp{
 	void windowResized(int w, int h);
 	void dragEvent(ofDragInfo dragInfo);
 	void gotMessage(ofMessage msg);
-	
+	void exit();
 
+	ofxGameCamera cam;
+	
 	TrackController trackController;
 	ParticleRenderer particleRenderer;
+	
+	ofRectangle previewRect;
+	
+	bool useTestRecording;
+	ofxTimeline recordingTest;
+	ofxTLDepthImageSequence depthSequence;
 };

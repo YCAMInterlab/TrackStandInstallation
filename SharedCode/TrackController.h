@@ -21,10 +21,11 @@ class TrackController {
 	vector<ofxTimeline*> timelines;
 	void setWidth(float width);
 	bool editMode;
+	ofRectangle drawRect;
 	
 	void togglePlayForTrackAtPoint(ofVec2f point);
   protected:
-	ofRectangle drawRect;
+
 	float timelineWidth;
 };
 

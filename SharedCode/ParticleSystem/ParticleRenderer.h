@@ -34,6 +34,8 @@ class ParticleRenderer {
 	void setup(int maxParticles){
 		int absoluteMaxParticles = 30000;
 		
+		meshBuilder.setDepthOnly();
+		
 		perlinForce = new ForcePerlin();
 		spinForce = new ForceSpin();
 		gravityForce = new ForceGravity();
