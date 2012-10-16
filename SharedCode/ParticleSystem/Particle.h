@@ -33,6 +33,8 @@ class Particle {
         energyPercent = energy/initialEnergy;
     }
     
+	ofColor color;
+	
     ofVec3f connectorPoint;
     float connectorEnergy;
     bool hasType;

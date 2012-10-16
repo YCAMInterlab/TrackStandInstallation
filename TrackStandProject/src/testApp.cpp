@@ -24,12 +24,13 @@ void testApp::setup(){
 
 		particleRenderer.meshBuilder.setDepthPixels(depthSequence.getDepthImageSequence()->getPixels());
 		recordingTest.setDurationInMillis(depthSequence.getDepthImageSequence()->getDurationInMillis());
-		
 	}
 	
 	cam.setup();
 	cam.autosavePosition = true;
 	cam.loadCameraPosition();
+	
+	trackController.particles = &particleRenderer;
 
 }
 
@@ -45,7 +46,8 @@ void testApp::update(){
 			particleRenderer.meshBuilder.update();
 		}
 	}
-	particleRenderer.update();
+
+	trackController.update();
 	
 }
 
@@ -63,6 +65,9 @@ void testApp::draw(){
 	cam.begin(previewRect);
 	particleRenderer.draw();
 	cam.end();
+	
+	ofDrawBitmapString(ofToString(ofGetFrameRate(),2), ofGetWidth() - 100, ofGetHeight()-40);
+	ofDrawBitmapString(ofToString(particleRenderer.totalParticles), ofGetWidth() - 100, ofGetHeight()-20);
 }
 
 //--------------------------------------------------------------
@@ -80,6 +85,9 @@ void testApp::keyReleased(int key){
 	}
 	if(key == 'p' && useTestRecording){
 		recordingTest.togglePlay();
+	}
+	if(key == 'F'){
+		trackController.toggleFooters();
 	}
 }
 

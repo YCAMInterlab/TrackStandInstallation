@@ -1,8 +1,50 @@
 <positions>
-    <element name="defaultLFO">
+    <element name="birth rate">
         <x>0.000000000</x>
-        <y>556.000000000</y>
+        <y>346.500000000</y>
         <width>840.000000000</width>
-        <height>91.000000000</height>
+        <height>59.250000000</height>
+    </element>
+    <element name="gravity amp">
+        <x>0.000000000</x>
+        <y>607.500000000</y>
+        <width>840.000000000</width>
+        <height>59.250000000</height>
+    </element>
+    <element name="life span">
+        <x>0.000000000</x>
+        <y>411.750000000</y>
+        <width>840.000000000</width>
+        <height>59.250000000</height>
+    </element>
+    <element name="perlin amp">
+        <x>0.000000000</x>
+        <y>477.000000000</y>
+        <width>840.000000000</width>
+        <height>59.250000000</height>
+    </element>
+    <element name="perlin density">
+        <x>0.000000000</x>
+        <y>542.250000000</y>
+        <width>840.000000000</width>
+        <height>59.250000000</height>
+    </element>
+    <element name="primary color">
+        <x>0.000000000</x>
+        <y>216.000000000</y>
+        <width>840.000000000</width>
+        <height>59.250000000</height>
+    </element>
+    <element name="secondary color">
+        <x>0.000000000</x>
+        <y>281.250000000</y>
+        <width>840.000000000</width>
+        <height>59.250000000</height>
+    </element>
+    <element name="spin force">
+        <x>0.000000000</x>
+        <y>672.750000000</y>
+        <width>840.000000000</width>
+        <height>59.250000000</height>
     </element>
 </positions>

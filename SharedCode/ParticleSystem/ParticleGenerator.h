@@ -17,6 +17,8 @@ class ParticleGenerator {
         birthRate = 10;
         lifespan = 200;
         numToBear = ofRandom(0,1);
+		primaryColor = NULL;
+		secondaryColor = NULL;
         //setup forces
         freeze = false;
     }
@@ -31,12 +33,13 @@ class ParticleGenerator {
 			Particle p;
 			p.birthTime = ofGetElapsedTimef();
 			p.energy = p.initialEnergy = lifespan + ofRandom(-lifespanVariance/2, lifespanVariance/2);
-//			if(ofRandomuf() > .999){
-//				p.energy *= 50;
-//			}
 			p.origin = p.position = position;
 			p.velocity = direction;
 			p.texcoord = texcoord;
+			if(primaryColor != NULL && secondaryColor != NULL){
+				p.color = ofRandomuf() < .8 ? *primaryColor : *secondaryColor;
+			}
+
 			if(showType && ofRandomuf() < typeChance){
 				p.hasType = true;
 			}
@@ -82,6 +85,9 @@ class ParticleGenerator {
         forces.push_back(force);
     }
     
+	ofFloatColor* primaryColor;
+	ofFloatColor* secondaryColor;
+	
     int remainingParticles;
     float birthRate;
     float lifespan;
