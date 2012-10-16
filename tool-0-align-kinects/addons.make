@@ -1,0 +1,4 @@
+ofxCv
+ofxGrabCam
+ofxGrabScene
+ofxKinect
