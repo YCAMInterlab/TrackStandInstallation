@@ -1,8 +1,8 @@
-<Height>2</Height>
+<Height>5</Height>
 <Width>4</Width>
 <Depth>8</Depth>
 <Resolution>128</Resolution>
-<Minimum area>3</Minimum area>
+<Minimum area>2</Minimum area>
 <Maximum area>128</Maximum area>
-<Threshold>123</Threshold>
-<Persistence>7</Persistence>
+<Threshold>50</Threshold>
+<Persistence>15</Persistence>

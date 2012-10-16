@@ -106,7 +106,8 @@ void KinectSet::draw() {
 	ofTranslate(-1.0f, -1.0f, -1.0f);
 	ofScale(2.0f/(float)fromAbove.getWidth(), 2.0f/(float)fromAbove.getHeight());
 	
-	ofDisableAlphaBlending();
+	ofEnableAlphaBlending();
+	ofSetColor(255, 255, 255, 80);
 	fromAbove.draw(0.0f, 0.0f);
 	
 	ofTranslate(0.0f, 0.1f, 0.0f);

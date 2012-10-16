@@ -5,10 +5,10 @@
 #include "Kinect.h"
 
 //---------
-Kinect::Kinect(int index) {
+Kinect::Kinect(int index, bool registration) {
 	this->index = index;
-	this->kinect.setRegistration(true);
-	this->kinect.init();
+	this->kinect.setRegistration(registration);
+	this->kinect.init(false, registration, registration);
 	this->kinect.open(index);
 	this->loadTransform();
 	this->parameters.add(angle);
@@ -28,11 +28,15 @@ void Kinect::updatePointCloud() {
 	ofFloatColor * color = coloredMesh.getColorsPointer();
 	ofVec3f * position = coloredMesh.getVerticesPointer();
 	
+	//#pragma omp parallel for
 	for(int y = 0; y < h; y += STEP) {
 		for(int x = 0; x < w; x += STEP) {
-			if(kinect.getDistanceAt(x, y) > 0) {
+			if(true || kinect.getDepthPixels()[x + y*w] > 0) {
 				*color++ = kinect.getColorAt(x,y);
 				*position++ = kinect.getWorldCoordinateAt(x, y);
+			} else {
+				*color++;
+				*position++ = ofVec3f();
 			}
 		}
 	}
@@ -73,6 +77,7 @@ void Kinect::draw() {
 	ofScale(0.4f, 0.4f, 0.4f);
 	ofTranslate(-1.0f, 1.0f);
 	ofScale(2.0f/(float)kinect.getWidth(), -2.0f/(float)kinect.getHeight());
+	ofScale(1.0f, (float)kinect.getHeight() / (float)kinect.getWidth());
 	ofTranslate(0.0f, 0.0f, -2.0f);
 	this->getRgbTexture().draw(0.0f, 0.0f);
 	ofPopMatrix();

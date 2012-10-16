@@ -10,6 +10,8 @@
 
 typedef Kinect DeviceType;
 
+#define REGISTRATION true
+
 class testApp : public ofBaseApp{
 public:
 	void setup();

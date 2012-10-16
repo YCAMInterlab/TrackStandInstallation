@@ -4,8 +4,8 @@
 void testApp::setup(){
 	ofEnableSmoothing();
 	
-	kinect[0] = new DeviceType(0);
-	kinect[1] = new DeviceType(1);
+	kinect[0] = new DeviceType(0, REGISTRATION);
+	kinect[1] = new DeviceType(1, REGISTRATION);
 
 	set.devices.push_back(kinect[0]);
 	set.devices.push_back(kinect[1]);

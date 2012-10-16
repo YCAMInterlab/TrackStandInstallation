@@ -6,11 +6,11 @@
 #include "Device.h"
 #include "ofxKinect.h"
 
-# define STEP 1
+#define STEP 1
 
 class Kinect : public Device {
 public:
-	Kinect(int index);
+	Kinect(int index, bool registration);
 	void update();
 	void draw();
 	void drawWhitePoints();
