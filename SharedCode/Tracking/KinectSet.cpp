@@ -28,7 +28,7 @@ KinectSet::KinectSet() {
 	this->parameters.add(maxDistance);
 	
 	height.addListener(this, & KinectSet::updateRegion);
-	width.addListener(this, & KinectSet::updateRegion);
+	width.addListener(this, & KinectSet::updateRegion);	
 	depth.addListener(this, & KinectSet::updateRegion);
 	resolution.addListener(this, & KinectSet::updateResolution);
 	minArea.addListener(this, & KinectSet::updateTrackingParameters);
@@ -40,6 +40,7 @@ KinectSet::KinectSet() {
 	int dummyInt;
 	updateRegion(dummy);
 	updateResolution(dummyInt);
+	updateTrackingParameters(dummyInt);
 	
 	load();
 }
@@ -69,6 +70,13 @@ void KinectSet::updateTrackingParameters(int &dummy) {
 }
 
 //--------
+void KinectSet::add(Device & device) {
+	this->devices.push_back(&device);
+	this->combinedPointsInWorldSpace.resize(this->combinedPointsInWorldSpace.size() + device.outputPointCount());
+	this->pointsPerDevice.push_back(device.outputPointCount());
+}
+
+//--------
 void KinectSet::update() {
 	this->fromAbove.begin();
 	ofClear(0);
@@ -95,6 +103,28 @@ void KinectSet::update() {
 	cv::cvtColor(ofxCv::toCv(pixelsCol), pixelsMono, CV_RGB2GRAY);
 	contourFinder.findContours(pixelsMono);
 	tracker.track(contourFinder.getBoundingRects());
+	
+	activePoints.clear();
+	//prep output points
+	#pragma omp parallel for
+	for (int i=0; i<this->devices.size(); i++) {
+		int offset = 0;
+		for (int j=0; j<i; j++)
+			offset += this->devices[j]->outputPointCount();
+		ofVec3f * world = & this->combinedPointsInWorldSpace[offset];
+		ofVec3f * object = & this->devices[i]->getObjectPoints()[0];
+		
+		const ofMatrix4x4 T = this->devices[i]->getGlobalTransformMatrix();
+		
+		for (int point=0; point < this->devices[i]->outputPointCount(); point++) {
+			*world = *object * T;
+			if (world->y > 0 && object->z > 0) {
+				activePoints.push_back(world);
+			}
+			*world++;
+			*object++;
+		}
+	}
 }
 
 //--------
@@ -109,7 +139,7 @@ void KinectSet::customDraw() {
 	ofScale(2.0f/(float)fromAbove.getWidth(), 2.0f/(float)fromAbove.getHeight());
 	
 	ofEnableAlphaBlending();
-	ofSetColor(255, 255, 255, 80);
+	ofSetColor(255, 255, 255, 150);
 	fromAbove.draw(0.0f, 0.0f);
 	
 	ofTranslate(0.0f, 0.1f, 0.0f);

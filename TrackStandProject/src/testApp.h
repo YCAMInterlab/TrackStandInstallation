@@ -31,11 +31,12 @@ class testApp : public ofBaseApp{
 	TrackController trackController;
 	ParticleRenderer particleRenderer;
 	
-	KinectSet kinects;
-	
 	ofRectangle previewRect;
 	
 	bool useTestRecording;
 	ofxTimeline recordingTest;
 	ofxTLDepthImageSequence depthSequence;
+	
+	Device * kinect[2];
+	KinectSet kinects;
 };

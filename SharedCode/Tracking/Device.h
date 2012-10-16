@@ -21,9 +21,12 @@ public:
 	virtual void draw() = 0;
 	virtual void drawWhitePoints() = 0;
 	virtual void close() = 0;
+	virtual int outputPointCount() = 0;
 	
 	virtual ofTexture & getDepthTexture() = 0;
 	virtual ofTexture & getRgbTexture() = 0;
+	
+	virtual vector<ofVec3f> & getObjectPoints() = 0;
 protected:
 	int index;
 #ifdef USE_GRABSCENE

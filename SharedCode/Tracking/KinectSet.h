@@ -15,16 +15,24 @@ class KinectSet : public ofNode {
 #endif
 public:
 	KinectSet();
-	vector<Device*> devices;
+	void add(Device &);
 	void update();
 	void customDraw();
 	void load();
 	void save();
 	string getFilename() { return "../../../common-data/tracking-params.xml"; }
+	vector<ofVec3f*>& highFiveTagTeam() { return this->activePoints; }
+	
 protected:
 	void updateRegion(float & dummy);
 	void updateResolution(int & dummy);
 	void updateTrackingParameters(int & dummy);
+	
+	vector<Device*> devices;
+	vector<ofVec3f> combinedPointsInWorldSpace;
+	vector<ofVec3f*> activePoints;
+	
+	vector<int> pointsPerDevice;
 	
 #ifdef USE_GRABSCENE
 	ofParameter<float> height;

@@ -18,6 +18,7 @@ void testApp::setup(){
 	//set up test
 	if(useTestRecording){
 		recordingTest.setup();
+		recordingTest.setShowTimeControls(false);
 		string testSequencePath = "/Users/focus/Desktop/__RGBD_Bins/YCAM_SPIN/YCAM_Y_CAM1/TAKE_09_21_16_01_16/depth";
 		depthSequence.loadSequence(testSequencePath);
 		recordingTest.addTrack("depth sequence",&depthSequence);
@@ -31,12 +32,19 @@ void testApp::setup(){
 	cam.loadCameraPosition();
 	
 	trackController.particles = &particleRenderer;
+	
+	kinect[0] = new Kinect(0, false);
+	kinect[1] = new Kinect(1, false);
+	kinects.add(*kinect[0]);
+	kinects.add(*kinect[1]);
 
 }
 
 //--------------------------------------------------------------
 void testApp::update(){
 
+	kinects.update();
+	
 	vector<ofVec2f> positions;
 	positions.push_back( ofVec2f(mouseX, mouseY) );
 	trackController.setPositions(positions);

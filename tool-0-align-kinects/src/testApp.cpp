@@ -7,9 +7,9 @@ void testApp::setup(){
 	kinect[0] = new DeviceType(0, REGISTRATION);
 	kinect[1] = new DeviceType(1, REGISTRATION);
 
-	set.devices.push_back(kinect[0]);
-	set.devices.push_back(kinect[1]);
-
+	set.add(*kinect[0]);
+	set.add(*kinect[1]);
+	
 	scene.init(camera);
 #ifdef USE_GRABSCENE
 	scene.add(kinect[0]);

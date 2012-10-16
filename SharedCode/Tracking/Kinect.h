@@ -15,9 +15,12 @@ public:
 	void draw();
 	void drawWhitePoints();
 	void close();
+	int outputPointCount();
 	
 	ofTexture & getDepthTexture();
 	ofTexture & getRgbTexture();
+	
+	vector<ofVec3f> & getObjectPoints();
 	
 protected:
 	void updatePointCloud();
