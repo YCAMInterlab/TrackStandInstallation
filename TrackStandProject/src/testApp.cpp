@@ -11,9 +11,8 @@ void testApp::setup(){
 	trackController.setup(4);
 	trackController.setWidth(ofGetScreenWidth()/2);
 	
-	
-	kinect[0] = new Kinect(0, false);
-	kinect[1] = new Kinect(1, false);
+	kinect[0] = new Kinect(0, true);
+	kinect[1] = new Kinect(1, true);
 	kinects.add(*kinect[0]);
 	kinects.add(*kinect[1]);
 	
@@ -42,6 +41,9 @@ void testApp::setup(){
 	cam.setup();
 	cam.autosavePosition = true;
 	cam.loadCameraPosition();
+	cam.setFarClip(30000);
+	cam.setNearClip(100);
+	cam.speed *= 10;
 	
 
 //	trackController.particles = &particleRenderer;
@@ -54,6 +56,8 @@ void testApp::setup(){
 void testApp::update(){
 
 	kinects.update();
+//	kinects.getDevices()[0]->update();
+//	kinects.getDevices()[1]->update();
 	
 	vector<ofVec2f> positions;
 	positions.push_back( ofVec2f(mouseX, mouseY) );
@@ -66,12 +70,11 @@ void testApp::update(){
 	}
 
 	trackController.update();
-	
 }
 
 //--------------------------------------------------------------
 void testApp::draw(){
-	trackController.draw();
+	//trackController.draw();
 	if(useTestRecording){
 		recordingTest.setOffset(trackController.drawRect.getBottomLeft());
 		recordingTest.draw();
@@ -81,12 +84,28 @@ void testApp::draw(){
 										  trackController.drawRect.width,
 										  ofGetHeight());
 	cam.begin(previewRect);
-//	particleRenderer.draw();
+	ofDrawGrid(10000.0f, 10, true);
+	
 	trackController.drawParticles();
+	
+	ofPushMatrix();
+	ofScale(1000.0f, 1000.f, 1000.0f);
+	ofPushStyle();
+	
+	ofSetColor(255, 0, 0);
+	kinects.getDevices()[0]->drawWhitePoints();
+	ofSetColor(0, 255, 0);
+	kinects.getDevices()[1]->drawWhitePoints();
+	
+	ofPopStyle();
+	ofPopMatrix();
+	
 	cam.end();
 	
 	ofDrawBitmapString(ofToString(ofGetFrameRate(),2), ofGetWidth() - 100, ofGetHeight()-40);
 //	ofDrawBitmapString(ofToString(particleRenderer.totalParticles), ofGetWidth() - 100, ofGetHeight()-20);
+	
+	kinects.drawFbo();
 }
 
 //--------------------------------------------------------------
@@ -158,4 +177,5 @@ void testApp::dragEvent(ofDragInfo dragInfo){
 //--------------------------------------------------------------
 void testApp::exit(){
 	depthSequence.disable();
+	kinects.close();
 }

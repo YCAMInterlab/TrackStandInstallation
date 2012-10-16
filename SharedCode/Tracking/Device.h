@@ -3,7 +3,7 @@
 //
 #pragma once
 
-//#define USE_GRABSCENE
+#define USE_GRABSCENE
 
 #ifdef USE_GRABSCENE
 #include "ofxGrabScene.h"
@@ -21,7 +21,7 @@ public:
 	virtual void draw() = 0;
 	virtual void drawWhitePoints() = 0;
 	virtual void close() = 0;
-	virtual int outputPointCount() = 0;
+	virtual int outputPointCount() const = 0;
 	
 	virtual ofTexture & getDepthTexture() = 0;
 	virtual ofTexture & getRgbTexture() = 0;
