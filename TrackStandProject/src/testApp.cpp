@@ -19,6 +19,7 @@ void testApp::setup(){
 	
 	float widthPerSection = kinects.getWidth() / 4;
 	for(int i = 0; i < 4; i++){
+		
 		trackController.particleRenderers[i]->minX = widthPerSection;
 		trackController.particleRenderers[i]->points = &kinects.highFiveTagTeam();
 	}

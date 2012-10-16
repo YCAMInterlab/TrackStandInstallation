@@ -8,6 +8,7 @@ ParticleRenderer::ParticleRenderer(){
 	points = NULL;
 	minX = 0;
 	maxX = 100;
+	points = NULL;
 	
 }
 
@@ -42,7 +43,7 @@ void ParticleRenderer::setup(int maxParticles){
 
 void ParticleRenderer::update(){
 //	perlinForce->amplitude = .2;
-	
+	return;
 	if(points == NULL){
 		return;
 	}
@@ -91,7 +92,14 @@ void ParticleRenderer::update(){
 
 void ParticleRenderer::draw(){
 //	meshBuilder.draw();
-	
+	ofMesh m;
+	for(int i = 0; i < points->size(); i++){
+		
+		//for(int i = 0; i < meshBuilder.validVertIndices.size(); i++){
+		ofVec3f* pos = (*points)[i];
+		m.addVertex(*pos);
+	}
+	m.drawVertices();
 	//render dots
 	ofPushStyle();
 	glPushMatrix();
