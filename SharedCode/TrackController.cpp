@@ -43,23 +43,24 @@ void TrackController::setup(int numTracks){
 		timeline->addColorsWithPalette("secondary color", palettes[i]);
 		
 		timeline->addTrack("sound", t);
-		timeline->addLFO("birth rate", ofRange(0, 1.0));
-		timeline->addLFO("life span", ofRange(0, 100));
-		timeline->addLFO("perlin amp", ofRange(0, .2));
-		timeline->addLFO("gravity amp", ofRange(0, .2));
+		timeline->addCurves("birth rate", ofRange(0, 1.0));
+		timeline->addCurves("life span", ofRange(0, 1000));
+		timeline->addCurves("perlin amp", ofRange(0, 1.0));
+		timeline->addCurves("gravity amp", ofRange(0, 1.0));
 		timelines.push_back(timeline);
 	}
 	
 	particleRenderer1 = new ParticleRenderer();
-	particleRenderer1->setup(50000);
+	particleRenderer1->setup(25000);
 	particleRenderer2 = new ParticleRenderer();
-	particleRenderer2->setup(50000);
+	particleRenderer2->setup(25000);
 
 }
 
 void TrackController::toggleFooters(){
 	for(int i = 0; i < timelines.size(); i++){
-		timelines[i]->setShowZoomer(timelines[i]->toggleShowFooters());
+		bool showTimeControls = timelines[i]->toggleShowFooters();
+		timelines[i]->setShowTimeControls(showTimeControls);
 	}
 }
 
