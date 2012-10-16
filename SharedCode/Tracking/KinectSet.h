@@ -21,6 +21,7 @@ public:
 	void load();
 	void save();
 	string getFilename() { return "../../../common-data/tracking-params.xml"; }
+	float getWidth(){ return width; };
 protected:
 	void updateRegion(float & dummy);
 	void updateResolution(int & dummy);

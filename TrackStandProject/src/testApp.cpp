@@ -11,10 +11,13 @@ void testApp::setup(){
 	trackController.setup(4);
 	trackController.setWidth(ofGetScreenWidth()/2);
 	
+	float widthPerSection = kinects.getWidth() / 4;
+	for(int i = 0; i < 4; i++){
+		trackController.particleRenderers[i]->minX = widthPerSection;
+	}
 	ofxTimeline::removeCocoaMenusFromGlut("TrackStand");
 
-	particleRenderer.setup(30000);
-	useTestRecording = true;
+	useTestRecording = false;
 	//set up test
 	if(useTestRecording){
 		recordingTest.setup();
@@ -22,15 +25,18 @@ void testApp::setup(){
 		depthSequence.loadSequence(testSequencePath);
 		recordingTest.addTrack("depth sequence",&depthSequence);
 
-		particleRenderer.meshBuilder.setDepthPixels(depthSequence.getDepthImageSequence()->getPixels());
+//		particleRenderer.meshBuilder.setDepthPixels(depthSequence.getDepthImageSequence()->getPixels());
 		recordingTest.setDurationInMillis(depthSequence.getDepthImageSequence()->getDurationInMillis());
+	}
+	else{
+		
 	}
 	
 	cam.setup();
 	cam.autosavePosition = true;
 	cam.loadCameraPosition();
 	
-	trackController.particles = &particleRenderer;
+//	trackController.particles = &particleRenderer;
 
 }
 
@@ -43,7 +49,7 @@ void testApp::update(){
 
 	if(useTestRecording){
 		if(depthSequence.isFrameNew()){
-			particleRenderer.meshBuilder.update();
+//			particleRenderer.meshBuilder.update();
 		}
 	}
 
@@ -63,11 +69,12 @@ void testApp::draw(){
 										  trackController.drawRect.width,
 										  ofGetHeight());
 	cam.begin(previewRect);
-	particleRenderer.draw();
+//	particleRenderer.draw();
+	trackController.drawParticles();
 	cam.end();
 	
 	ofDrawBitmapString(ofToString(ofGetFrameRate(),2), ofGetWidth() - 100, ofGetHeight()-40);
-	ofDrawBitmapString(ofToString(particleRenderer.totalParticles), ofGetWidth() - 100, ofGetHeight()-20);
+//	ofDrawBitmapString(ofToString(particleRenderer.totalParticles), ofGetWidth() - 100, ofGetHeight()-20);
 }
 
 //--------------------------------------------------------------
@@ -91,6 +98,9 @@ void testApp::keyReleased(int key){
 	}
 	if(key == 'f'){
 		ofToggleFullscreen();
+	}
+	if(key == '1'){
+		trackController.fitToScreenHeight();
 	}
 }
 
@@ -117,6 +127,9 @@ void testApp::mouseReleased(int x, int y, int button){
 //--------------------------------------------------------------
 void testApp::windowResized(int w, int h){
 	trackController.setWidth(ofGetWidth()/2);
+	if(useTestRecording){
+		recordingTest.setWidth(ofGetWidth()/2);
+	}
 
 }
 

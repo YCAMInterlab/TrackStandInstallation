@@ -18,6 +18,7 @@ class TrackController {
 	void setup(int numTracks);
 	void update();
 	void draw();
+	void drawParticles();
 	
 	void setPositions(vector<ofVec2f> positions);
 	vector<ofxTimeline*> timelines;
@@ -25,19 +26,14 @@ class TrackController {
 	bool editMode;
 	
 	ofRectangle drawRect;
-	ParticleRenderer* particles;
-	
-	//where to draw to the floor
-//	ofRectangle floorRectangle;
-	//where to draw into the screen for editing
-//	ofRectangle editingRectangle;
-//	void setToFloor(bool onFloor);
+	vector<ParticleRenderer*> particleRenderers;
 	
 	void toggleFooters();
 	void togglePlayForTrackAtPoint(ofVec2f point);
+	void fitToScreenHeight();
 	
   protected:
-	bool isOnFloor;
+
 	float timelineWidth;
 };
 

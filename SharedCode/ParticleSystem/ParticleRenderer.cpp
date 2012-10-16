@@ -5,15 +5,17 @@ ParticleRenderer::ParticleRenderer(){
 	birthRate = .2;
 	lifeSpan = 100;
 	lifeSpanVariance = 5;
+	points = NULL;
+	minX = 0;
+	maxX = 100;
 	
 }
 
 void ParticleRenderer::setup(int maxParticles){
-	//		int absoluteMaxParticles = 30000;
 	
-	meshBuilder.setDepthOnly();
-	meshBuilder.setSimplification(4);
-	meshBuilder.cacheValidVertices = true;
+//	meshBuilder.setDepthOnly();
+//	meshBuilder.setSimplification(4);
+//	meshBuilder.cacheValidVertices = true;
 	
 	perlinForce = new ForcePerlin();
 	spinForce = new ForceSpin();
@@ -41,6 +43,10 @@ void ParticleRenderer::setup(int maxParticles){
 void ParticleRenderer::update(){
 //	perlinForce->amplitude = .2;
 	
+	if(points == NULL){
+		return;
+	}
+	
 	perlinForce->update();
 	totalParticles = 0;
 	for(int i = 0; i < emitters.size(); i++){
@@ -49,22 +55,27 @@ void ParticleRenderer::update(){
 		totalParticles += emitters[i].particles.size();
 	}
 	
-	
 	int particlesPerEmitter = 0;
-	if(meshBuilder.validVertIndices.size() > 0 ){
-		particlesPerEmitter = (maxAllowedParticles - totalParticles) / meshBuilder.validVertIndices.size() - 1;
+	if(points->size() > 0 ){
+//	if(meshBuilder.validVertIndices.size() > 0 ){
+		particlesPerEmitter = (maxAllowedParticles - totalParticles) / points->size() - 1;
 	}
+	
 	//cout << "particles per emitter " << particlesPerEmitter << " max allowd particles " << maxAllowedParticles << endl;
 	//for(int i = 0; i < meshBuilder.getMesh().getVertices().size(); i++){
-	for(int i = 0; i < meshBuilder.validVertIndices.size(); i++){
+	for(int i = 0; i < points->size(); i++){
+	//for(int i = 0; i < meshBuilder.validVertIndices.size(); i++){
+		ofVec3f* pos = (*points)[i];
+		if(pos->x > minX && pos->x < maxX){
 		
-		ParticleGenerator& g = emitters[i];
-		g.birthRate = birthRate; //disable invisible verts
-		g.lifespan  = lifeSpan;
-		g.lifespanVariance = lifeSpanVariance;
-		g.position =  meshBuilder.getMesh().getVertices()[meshBuilder.validVertIndices[i]];
-		g.remainingParticles = particlesPerEmitter;
-		
+			ParticleGenerator& g = emitters[i];
+			g.birthRate = birthRate; //disable invisible verts
+			g.lifespan  = lifeSpan;
+			g.lifespanVariance = lifeSpanVariance;
+	//		g.position =  meshBuilder.getMesh().getVertices()[meshBuilder.validVertIndices[i]];
+			g.position = *pos;
+			g.remainingParticles = particlesPerEmitter;
+		}		
 	}
 	
 	//    cout << " total particles " << totalParticles << endl;
@@ -79,7 +90,7 @@ void ParticleRenderer::update(){
 }
 
 void ParticleRenderer::draw(){
-	meshBuilder.draw();
+//	meshBuilder.draw();
 	
 	//render dots
 	ofPushStyle();

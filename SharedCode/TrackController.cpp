@@ -2,7 +2,6 @@
 #include "TrackController.h"
 TrackController::TrackController(){
 	editMode = false;
-	isOnFloor = false;
 }
 
 TrackController::~TrackController(){
@@ -34,10 +33,14 @@ void TrackController::setup(int numTracks){
 		timeline->addLFO("perlin density", ofRange(0, .2));
 		timeline->addLFO("gravity amp", ofRange(0, .2));
 		timeline->addLFO("spin force", ofRange(0, .2));
-		
 		timelines.push_back(timeline);
+
+		ParticleRenderer* particleRenderer = new ParticleRenderer();
+		particleRenderer->setup(30000);
+		
+		particleRenderers.push_back(particleRenderer);
+		
 	}
-	
 }
 
 void TrackController::toggleFooters(){
@@ -61,7 +64,7 @@ void TrackController::draw(){
 	
 	for(int i = 0; i < timelines.size(); i++){
 		if(i != 0){
-			timelines[i]->setOffset(timelines[i-1]->getBottomLeft() + ofVec2f(0, 10));
+			timelines[i]->setOffset(timelines[i-1]->getBottomLeft() );
 		}
 		if(!editMode){
 			timelines[i]->getZoomer()->setViewRange(ofRange(timelines[i]->getPercentComplete()-.06,
@@ -71,26 +74,31 @@ void TrackController::draw(){
 	}
 }
 
+void TrackController::drawParticles(){
+	for(int i = 0; i < particleRenderers.size(); i++){
+		particleRenderers[i]->draw();
+	}
+}
+
 void TrackController::update(){
 	
 	for(int i  = 0; i < timelines.size(); i++){
 		if(timelines[i]->getIsPlaying()){
 
-			particles->perlinForce->amplitude = timelines[i]->getValue("perlin amp");
-			particles->perlinForce->density = timelines[i]->getValue("perlin amp");
-			particles->gravityForce->gravity = timelines[i]->getValue("gravity amp");
-			particles->spinForce->power = timelines[i]->getValue("spin force");
-			particles->primaryColor   = timelines[i]->getColor("primary color");
-			particles->secondaryColor = timelines[i]->getColor("secondary color");
-			particles->birthRate = timelines[i]->getValue("birth rate");
-			particles->lifeSpan = timelines[i]->getValue("life span");
+			particleRenderers[i]->perlinForce->amplitude = timelines[i]->getValue("perlin amp");
+			particleRenderers[i]->perlinForce->density = timelines[i]->getValue("perlin amp");
+			particleRenderers[i]->gravityForce->gravity = timelines[i]->getValue("gravity amp");
+			particleRenderers[i]->spinForce->power = timelines[i]->getValue("spin force");
+			particleRenderers[i]->primaryColor   = timelines[i]->getColor("primary color");
+			particleRenderers[i]->secondaryColor = timelines[i]->getColor("secondary color");
+			particleRenderers[i]->birthRate = timelines[i]->getValue("birth rate");
+			particleRenderers[i]->lifeSpan = timelines[i]->getValue("life span");
 			
 		}
+		particleRenderers[i]->update();
 	}
-	
-	particles->update();
-	
 }
+
 
 void TrackController::setPositions(vector<ofVec2f> positions){
 	drawRect = ofRectangle(0,0,0,0);
@@ -122,14 +130,12 @@ void TrackController::setPositions(vector<ofVec2f> positions){
 	}
 }
 
-//void TrackController::setToFloor(bool floor){
-//	if(floor && !isOnFloor){
-//		isOnFloor = floor;
-//		for(int i = 0; i < )
-//		timeline->moveToRectangle();
-//		
-//	}
-//}
+void TrackController::fitToScreenHeight(){
+	float heightPerTimeline = ofGetHeight() / timelines.size();
+	for(int i = 0; i < timelines.size(); i++){
+		timelines[i]->setHeight(heightPerTimeline);
+	}
+}
 
 void TrackController::togglePlayForTrackAtPoint(ofVec2f point){
 	for(int t = 0; t < timelines.size(); t++){

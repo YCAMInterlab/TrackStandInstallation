@@ -14,6 +14,11 @@ class ParticleRenderer {
 	//update this ever frame;
 	ofxRGBDMeshBuilder meshBuilder;
 	
+	vector<ofVec3f*>* points;
+	
+	float minX;
+	float maxX;
+	
 	ofVboMesh mesh;
 	ofShader pointCloudDOF;
 	int totalParticles;

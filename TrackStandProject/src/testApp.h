@@ -3,7 +3,6 @@
 #include "ofMain.h"
 #include "ofxTimeline.h"
 #include "TrackController.h"
-#include "ParticleRenderer.h"
 #include "ofxTLDepthImageSequence.h"
 #include "ofxGameCamera.h"
 #include "KinectSet.h"
@@ -29,7 +28,6 @@ class testApp : public ofBaseApp{
 	ofxGameCamera cam;
 	
 	TrackController trackController;
-	ParticleRenderer particleRenderer;
 	
 	KinectSet kinects;
 	
