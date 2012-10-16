@@ -5,6 +5,7 @@ void testApp::setup(){
 	ofBackground(0);
 	ofEnableAlphaBlending();
 	ofSetFrameRate(60);
+	ofEnableSmoothing();
 	ofToggleFullscreen();
 	
 	trackController.setup(4);
@@ -60,7 +61,7 @@ void testApp::draw(){
 	
 	previewRect = ofRectangle(trackController.drawRect.getTopRight(),
 										  trackController.drawRect.width,
-										  trackController.drawRect.height);
+										  ofGetHeight());
 	cam.begin(previewRect);
 	particleRenderer.draw();
 	cam.end();
@@ -90,8 +91,6 @@ void testApp::keyReleased(int key){
 	}
 	if(key == 'f'){
 		ofToggleFullscreen();
-		trackController.setWidth(ofGetWidth()/2);
-
 	}
 }
 
@@ -117,6 +116,7 @@ void testApp::mouseReleased(int x, int y, int button){
 
 //--------------------------------------------------------------
 void testApp::windowResized(int w, int h){
+	trackController.setWidth(ofGetWidth()/2);
 
 }
 

@@ -24,7 +24,11 @@ protected:
 	void updateAngle(float &);
 	ofxKinect kinect;
 	ofNode origin;
+#ifdef USE_GRABSCENE
 	ofParameter<float> angle;
+#else
+	float angle;
+#endif
 	ofMesh coloredMesh;
 	ofMesh whiteMesh;
 };

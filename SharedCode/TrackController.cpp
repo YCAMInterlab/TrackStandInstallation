@@ -28,12 +28,12 @@ void TrackController::setup(int numTracks){
 		timeline->setDurationInSeconds(60);
 		timeline->addColorsWithPalette("primary color", palettes[i]);
 		timeline->addColorsWithPalette("secondary color", palettes[i]);
-		timeline->addCurves("birth rate", ofRange(0, 1.0));
-		timeline->addCurves("life span", ofRange(0, 100));
-		timeline->addCurves("perlin amp", ofRange(0, .2));
-		timeline->addCurves("perlin density", ofRange(0, .2));
-		timeline->addCurves("gravity amp", ofRange(0, .2));
-		timeline->addCurves("spin force", ofRange(0, .2));
+		timeline->addLFO("birth rate", ofRange(0, 1.0));
+		timeline->addLFO("life span", ofRange(0, 100));
+		timeline->addLFO("perlin amp", ofRange(0, .2));
+		timeline->addLFO("perlin density", ofRange(0, .2));
+		timeline->addLFO("gravity amp", ofRange(0, .2));
+		timeline->addLFO("spin force", ofRange(0, .2));
 		
 		timelines.push_back(timeline);
 	}
@@ -50,6 +50,7 @@ void TrackController::setWidth(float width){
 	if(width == timelineWidth){
 		return;
 	}
+
 	timelineWidth = width;
 	for(int i = 0; i < timelines.size(); i++){
 		timelines[i]->setWidth(timelineWidth);
@@ -63,8 +64,8 @@ void TrackController::draw(){
 			timelines[i]->setOffset(timelines[i-1]->getBottomLeft() + ofVec2f(0, 10));
 		}
 		if(!editMode){
-			timelines[i]->getZoomer()->setViewRange(ofRange(timelines[i]->getPercentComplete()-.03,
-															timelines[i]->getPercentComplete()+.03));
+			timelines[i]->getZoomer()->setViewRange(ofRange(timelines[i]->getPercentComplete()-.06,
+															timelines[i]->getPercentComplete()+.06));
 		}
 		timelines[i]->draw();
 	}

@@ -3,7 +3,7 @@
 //
 #pragma once
 
-#define USE_GRABSCENE
+//#define USE_GRABSCENE
 
 #ifdef USE_GRABSCENE
 #include "ofxGrabScene.h"

@@ -13,10 +13,10 @@ Kinect::Kinect(int index, bool registration) {
 	this->loadTransform();
 #ifdef USE_GRABSCENE
 	this->parameters.add(angle);
-#endif
-	
 	angle.set("Angle", 0, -30, 30);
 	angle.addListener(this, & Kinect::updateAngle);
+#endif
+	
 	
 	this->coloredMesh.getVertices().resize(kinect.getWidth()*kinect.getHeight() / (STEP*STEP));
 	this->coloredMesh.getColors().resize(kinect.getWidth()*kinect.getHeight() / (STEP*STEP));

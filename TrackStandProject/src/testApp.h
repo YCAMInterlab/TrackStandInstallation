@@ -6,6 +6,8 @@
 #include "ParticleRenderer.h"
 #include "ofxTLDepthImageSequence.h"
 #include "ofxGameCamera.h"
+#include "KinectSet.h"
+#include "Kinect.h"
 
 class testApp : public ofBaseApp{
   public:
@@ -28,6 +30,8 @@ class testApp : public ofBaseApp{
 	
 	TrackController trackController;
 	ParticleRenderer particleRenderer;
+	
+	KinectSet kinects;
 	
 	ofRectangle previewRect;
 	

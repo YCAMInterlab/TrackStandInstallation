@@ -132,9 +132,10 @@ void KinectSet::load() {
 		return;
 	
 	ofxXmlSettings xml;
-	xml.load(this->getFilename());
+
 	
 #ifdef USE_GRABSCENE
+	xml.load(this->getFilename());
 	xml.getValue(height.getName(), height);
 	xml.getValue(width.getName(), width);
 	xml.getValue(depth.getName(), depth);
@@ -144,6 +145,7 @@ void KinectSet::load() {
 	xml.getValue(threshold.getName(), threshold);
 	xml.getValue(persistence.getName(), persistence);
 #else
+	xml.loadFile(this->getFilename());
 	xml.getValue("Height", height);
 	xml.getValue("Width", width);
 	xml.getValue("Depth", depth);
