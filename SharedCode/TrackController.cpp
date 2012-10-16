@@ -2,6 +2,7 @@
 #include "TrackController.h"
 TrackController::TrackController(){
 	editMode = false;
+	isOnFloor = false;
 }
 
 TrackController::~TrackController(){
@@ -10,6 +11,12 @@ TrackController::~TrackController(){
 
 void TrackController::setup(int numTracks){
 	timelineWidth = ofGetWidth();
+	vector<string> palettes;
+	palettes.push_back("../../../SharedAssets/spring.png");
+	palettes.push_back("../../../SharedAssets/summer.png");
+	palettes.push_back("../../../SharedAssets/autumn.png");
+	palettes.push_back("../../../SharedAssets/winter.png");
+	
 	for(int i = 0; i < numTracks; i++){
 		ofxTimeline* timeline = new ofxTimeline();
 		
@@ -18,9 +25,9 @@ void TrackController::setup(int numTracks){
 		timeline->setMinimalHeaders(true);
 		timeline->setFootersHidden(true);
 		timeline->setShowTimeControls(false);
-		
-		timeline->addColors("primary color");
-		timeline->addColors("secondary color");
+		timeline->setDurationInSeconds(60);
+		timeline->addColorsWithPalette("primary color", palettes[i]);
+		timeline->addColorsWithPalette("secondary color", palettes[i]);
 		timeline->addCurves("birth rate", ofRange(0, 1.0));
 		timeline->addCurves("life span", ofRange(0, 100));
 		timeline->addCurves("perlin amp", ofRange(0, .2));
@@ -56,8 +63,8 @@ void TrackController::draw(){
 			timelines[i]->setOffset(timelines[i-1]->getBottomLeft() + ofVec2f(0, 10));
 		}
 		if(!editMode){
-			timelines[i]->getZoomer()->setViewRange(ofRange(timelines[i]->getPercentComplete()-.1,
-															timelines[i]->getPercentComplete()+.1));
+			timelines[i]->getZoomer()->setViewRange(ofRange(timelines[i]->getPercentComplete()-.03,
+															timelines[i]->getPercentComplete()+.03));
 		}
 		timelines[i]->draw();
 	}
@@ -113,6 +120,15 @@ void TrackController::setPositions(vector<ofVec2f> positions){
 		}
 	}
 }
+
+//void TrackController::setToFloor(bool floor){
+//	if(floor && !isOnFloor){
+//		isOnFloor = floor;
+//		for(int i = 0; i < )
+//		timeline->moveToRectangle();
+//		
+//	}
+//}
 
 void TrackController::togglePlayForTrackAtPoint(ofVec2f point){
 	for(int t = 0; t < timelines.size(); t++){

@@ -1,50 +1,50 @@
 <positions>
     <element name="birth rate">
         <x>0.000000000</x>
-        <y>346.500000000</y>
+        <y>95.250000000</y>
         <width>840.000000000</width>
-        <height>59.250000000</height>
+        <height>92.125000000</height>
     </element>
     <element name="gravity amp">
         <x>0.000000000</x>
-        <y>607.500000000</y>
+        <y>500.750000000</y>
         <width>840.000000000</width>
-        <height>59.250000000</height>
+        <height>92.125000000</height>
     </element>
     <element name="life span">
         <x>0.000000000</x>
-        <y>411.750000000</y>
+        <y>187.375000000</y>
         <width>840.000000000</width>
-        <height>59.250000000</height>
+        <height>129.125000000</height>
     </element>
     <element name="perlin amp">
         <x>0.000000000</x>
-        <y>477.000000000</y>
+        <y>316.500000000</y>
         <width>840.000000000</width>
-        <height>59.250000000</height>
+        <height>92.125000000</height>
     </element>
     <element name="perlin density">
         <x>0.000000000</x>
-        <y>542.250000000</y>
+        <y>408.625000000</y>
         <width>840.000000000</width>
-        <height>59.250000000</height>
+        <height>92.125000000</height>
     </element>
     <element name="primary color">
         <x>0.000000000</x>
-        <y>216.000000000</y>
+        <y>30.000000000</y>
         <width>840.000000000</width>
-        <height>59.250000000</height>
+        <height>31.125000000</height>
     </element>
     <element name="secondary color">
         <x>0.000000000</x>
-        <y>281.250000000</y>
+        <y>61.125000000</y>
         <width>840.000000000</width>
-        <height>59.250000000</height>
+        <height>34.125000000</height>
     </element>
     <element name="spin force">
         <x>0.000000000</x>
-        <y>672.750000000</y>
+        <y>592.875000000</y>
         <width>840.000000000</width>
-        <height>59.250000000</height>
+        <height>92.125000000</height>
     </element>
 </positions>

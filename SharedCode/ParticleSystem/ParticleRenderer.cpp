@@ -39,24 +39,9 @@ void ParticleRenderer::setup(int maxParticles){
 }
 
 void ParticleRenderer::update(){
-	perlinForce->amplitude = .2;
-	/*
-	 perlinForce->amplitude = powf( masterTimeline.getValue("Perlin Amplitude"), 2.0);
-	 perlinForce->density = powf( masterTimeline.getValue("Perlin Density"), 2.0);
-	 perlinForce->speed = powf( masterTimeline.getValue("Perlin Speed"), 2.0);
-	 spinForce->power = powf( masterTimeline.getValue("Wind Speed"), 2.0);
-	 gravityForce->gravity = powf( masterTimeline.getValue("Gravity Force"), 2.0);
-	 gravityForce->maxDelay = masterTimeline.getValue("Gravity Delay");
-	 */
+//	perlinForce->amplitude = .2;
 	
 	perlinForce->update();
-	/*
-	 //GENERATOR
-	 float birthRate = masterTimeline.getValue("Birthrate");
-	 float lifeSpan  = masterTimeline.getValue("Lifespan");
-	 float lifeSpanVariance = masterTimeline.getValue("Lifespan Variance");
-	 int maxParticles = masterTimeline.getValue("Max Particles");
-	 */
 	totalParticles = 0;
 	for(int i = 0; i < emitters.size(); i++){
 		emitters[i].birthRate = 0;
@@ -80,9 +65,6 @@ void ParticleRenderer::update(){
 		g.position =  meshBuilder.getMesh().getVertices()[meshBuilder.validVertIndices[i]];
 		g.remainingParticles = particlesPerEmitter;
 		
-		//            if(useColors && colorPalette.isAllocated()){
-		//                g.texcoord = renderer.getMesh().getTexCoord( renderer.vertexIndex(i) );
-		//            }
 	}
 	
 	//    cout << " total particles " << totalParticles << endl;

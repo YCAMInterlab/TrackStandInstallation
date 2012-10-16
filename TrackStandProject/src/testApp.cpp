@@ -3,8 +3,7 @@
 //--------------------------------------------------------------
 void testApp::setup(){
 	ofBackground(0);
-	ofEnableSmoothing();
-	
+	ofEnableAlphaBlending();
 	ofSetFrameRate(60);
 	ofToggleFullscreen();
 	
@@ -88,6 +87,11 @@ void testApp::keyReleased(int key){
 	}
 	if(key == 'F'){
 		trackController.toggleFooters();
+	}
+	if(key == 'f'){
+		ofToggleFullscreen();
+		trackController.setWidth(ofGetWidth()/2);
+
 	}
 }
 
