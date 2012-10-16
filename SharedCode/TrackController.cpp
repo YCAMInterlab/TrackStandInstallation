@@ -44,7 +44,7 @@ void TrackController::setup(int numTracks){
 		
 		timeline->addTrack("sound", t);
 		timeline->addCurves("birth rate", ofRange(0, 1.0));
-		timeline->addCurves("life span", ofRange(0, 1000));
+		timeline->addCurves("life span", ofRange(0, 300));
 		timeline->addCurves("perlin amp", ofRange(0, 1.0));
 		timeline->addCurves("gravity amp", ofRange(0, 1.0));
 		timelines.push_back(timeline);
@@ -92,9 +92,14 @@ void TrackController::draw(){
 	}
 	ofDrawBitmapString(ofToString(particleRenderer1->totalParticles+particleRenderer2->totalParticles), ofGetWidth() - 100, ofGetHeight()-20);
 
+	ofPushStyle();
+	ofNoFill();
+	ofEnableAlphaBlending();
+	ofSetColor(255, 100);
 	for (int i=0; i<this->people.size(); i++) {
 		ofCircle(this->people[i].x, this->people[i].y, 30);
 	}
+	ofPopStyle();
 }
 
 void TrackController::drawParticles(){
@@ -116,7 +121,6 @@ void TrackController::update(){
 //			particleRenderers[i]->secondaryColor = timelines[i]->getColor("secondary color");
 //			particleRenderers[i]->birthRate = timelines[i]->getValue("birth rate");
 //			particleRenderers[i]->lifeSpan = timelines[i]->getValue("life span");
-//			
 
 			particleRenderer1->perlinForce->amplitude = timelines[i]->getValue("perlin amp");
 			particleRenderer1->gravityForce->gravity = timelines[i]->getValue("gravity amp");
@@ -134,14 +138,14 @@ void TrackController::update(){
 		}
 	}
 	
-	particleRenderer1->update();
-	particleRenderer2->update();
+//	particleRenderer1->update();
+//	particleRenderer2->update();
 
 }
 
-
 void TrackController::setPositions(vector<ofVec2f> positions){
 	this->people = positions;
+//	cout << " positions ? " << positions.size() << endl;
 	
 	drawRect = ofRectangle(0,0,0,0);
 	for(int i = 0; i < timelines.size(); i++){

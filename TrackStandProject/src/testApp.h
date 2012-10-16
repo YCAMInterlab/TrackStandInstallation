@@ -27,8 +27,10 @@ class testApp : public ofBaseApp{
 	void gotMessage(ofMessage msg);
 	void exit();
 
-	ofxGui smallGui;
-	
+	ofxPanel smallGui;
+	ofxFloatSlider bottom1;
+    ofxFloatSlider bottom2;
+
 	ofxGameCamera cam;
 	ofxGrabCam grabcam;
 	
@@ -37,6 +39,7 @@ class testApp : public ofBaseApp{
 	ofRectangle previewRect;
 	
 	bool useTestRecording;
+	ofxTimeline globalparams;
 	ofxTimeline recordingTest;
 	ofxTLDepthImageSequence depthSequence;
 	
