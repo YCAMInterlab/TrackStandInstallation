@@ -22,6 +22,7 @@ public:
 	void save();
 	string getFilename() { return "../../../common-data/tracking-params.xml"; }
 	vector<ofVec3f*>& highFiveTagTeam() { return this->activePoints; }
+	int getWidth() const { return this->width; }
 
 protected:
 	void updateRegion(float & dummy);
