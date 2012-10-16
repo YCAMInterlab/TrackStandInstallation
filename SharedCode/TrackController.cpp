@@ -89,6 +89,8 @@ void TrackController::draw(){
 		}
 		timelines[i]->draw();
 	}
+	ofDrawBitmapString(ofToString(particleRenderer1->totalParticles+particleRenderer2->totalParticles), ofGetWidth() - 100, ofGetHeight()-20);
+
 }
 
 void TrackController::drawParticles(){
@@ -100,9 +102,9 @@ void TrackController::drawParticles(){
 }
 
 void TrackController::update(){
-	return;
+
 	for(int i  = 0; i < timelines.size(); i++){
-//		if(timelines[i]->getIsPlaying()){
+		if(timelines[i]->getIsPlaying()){
 //
 //			particleRenderers[i]->perlinForce->amplitude = timelines[i]->getValue("perlin amp");
 //			particleRenderers[i]->gravityForce->gravity = timelines[i]->getValue("gravity amp");
@@ -111,24 +113,26 @@ void TrackController::update(){
 //			particleRenderers[i]->birthRate = timelines[i]->getValue("birth rate");
 //			particleRenderers[i]->lifeSpan = timelines[i]->getValue("life span");
 //			
-//		}
-		particleRenderer1->perlinForce->amplitude = timelines[i]->getValue("perlin amp");
-		particleRenderer1->gravityForce->gravity = timelines[i]->getValue("gravity amp");
-		particleRenderer1->primaryColor   = timelines[i]->getColor("primary color");
-		particleRenderer1->secondaryColor = timelines[i]->getColor("secondary color");
-		particleRenderer1->birthRate = timelines[i]->getValue("birth rate");
-		particleRenderer1->lifeSpan = timelines[i]->getValue("life span");
 
-		particleRenderer2->perlinForce->amplitude = timelines[i]->getValue("perlin amp");
-		particleRenderer2->gravityForce->gravity = timelines[i]->getValue("gravity amp");
-		particleRenderer2->primaryColor   = timelines[i]->getColor("primary color");
-		particleRenderer2->secondaryColor = timelines[i]->getColor("secondary color");
-		particleRenderer2->birthRate = timelines[i]->getValue("birth rate");
-		particleRenderer2->lifeSpan = timelines[i]->getValue("life span");
+			particleRenderer1->perlinForce->amplitude = timelines[i]->getValue("perlin amp");
+			particleRenderer1->gravityForce->gravity = timelines[i]->getValue("gravity amp");
+			particleRenderer1->primaryColor   = timelines[i]->getColor("primary color");
+			particleRenderer1->secondaryColor = timelines[i]->getColor("secondary color");
+			particleRenderer1->birthRate = timelines[i]->getValue("birth rate");
+			particleRenderer1->lifeSpan = timelines[i]->getValue("life span");
 
-		particleRenderer1->update();
-		particleRenderer2->update();
+			particleRenderer2->perlinForce->amplitude = timelines[i]->getValue("perlin amp");
+			particleRenderer2->gravityForce->gravity = timelines[i]->getValue("gravity amp");
+			particleRenderer2->primaryColor   = timelines[i]->getColor("primary color");
+			particleRenderer2->secondaryColor = timelines[i]->getColor("secondary color");
+			particleRenderer2->birthRate = timelines[i]->getValue("birth rate");
+			particleRenderer2->lifeSpan = timelines[i]->getValue("life span");
+		}
 	}
+	
+	particleRenderer1->update();
+	particleRenderer2->update();
+
 }
 
 

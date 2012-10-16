@@ -48,6 +48,8 @@ void testApp::setup(){
 		
 	}
 	cam.setup();
+	cam.setFarClip(100);
+	cam.setNearClip(.01);
 	cam.autosavePosition = true;
 	cam.loadCameraPosition();
 	cam.speed *= .1;
@@ -89,7 +91,6 @@ void testApp::draw(){
 	cam.end();
 	
 	ofDrawBitmapString(ofToString(ofGetFrameRate(),2), ofGetWidth() - 100, ofGetHeight()-40);
-//	ofDrawBitmapString(ofToString(particleRenderer.totalParticles), ofGetWidth() - 100, ofGetHeight()-20);
 }
 
 //--------------------------------------------------------------
