@@ -11,16 +11,24 @@ void testApp::setup(){
 	trackController.setup(4);
 	trackController.setWidth(ofGetScreenWidth()/2);
 	
+	
+	kinect[0] = new Kinect(0, false);
+	kinect[1] = new Kinect(1, false);
+	kinects.add(*kinect[0]);
+	kinects.add(*kinect[1]);
+	
 	float widthPerSection = kinects.getWidth() / 4;
 	for(int i = 0; i < 4; i++){
 		trackController.particleRenderers[i]->minX = widthPerSection;
 	}
+	
 	ofxTimeline::removeCocoaMenusFromGlut("TrackStand");
 
 	useTestRecording = false;
 	//set up test
 	if(useTestRecording){
 		recordingTest.setup();
+		recordingTest.setShowTimeControls(false);
 		string testSequencePath = "/Users/focus/Desktop/__RGBD_Bins/YCAM_SPIN/YCAM_Y_CAM1/TAKE_09_21_16_01_16/depth";
 		depthSequence.loadSequence(testSequencePath);
 		recordingTest.addTrack("depth sequence",&depthSequence);
@@ -28,21 +36,23 @@ void testApp::setup(){
 //		particleRenderer.meshBuilder.setDepthPixels(depthSequence.getDepthImageSequence()->getPixels());
 		recordingTest.setDurationInMillis(depthSequence.getDepthImageSequence()->getDurationInMillis());
 	}
-	else{
-		
-	}
 	
 	cam.setup();
 	cam.autosavePosition = true;
 	cam.loadCameraPosition();
 	
+
 //	trackController.particles = &particleRenderer;
+//	trackController.particles = &particleRenderer;
+
 
 }
 
 //--------------------------------------------------------------
 void testApp::update(){
 
+	kinects.update();
+	
 	vector<ofVec2f> positions;
 	positions.push_back( ofVec2f(mouseX, mouseY) );
 	trackController.setPositions(positions);

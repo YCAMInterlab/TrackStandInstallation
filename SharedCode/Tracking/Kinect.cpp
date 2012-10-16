@@ -17,9 +17,9 @@ Kinect::Kinect(int index, bool registration) {
 	angle.addListener(this, & Kinect::updateAngle);
 #endif
 	
-	
 	this->coloredMesh.getVertices().resize(kinect.getWidth()*kinect.getHeight() / (STEP*STEP));
 	this->coloredMesh.getColors().resize(kinect.getWidth()*kinect.getHeight() / (STEP*STEP));
+	this->whiteMesh.getVertices().resize(kinect.getWidth()*kinect.getHeight() / (STEP*STEP));
 }
 
 //---------
@@ -34,7 +34,7 @@ void Kinect::updatePointCloud() {
 	for(int y = 0; y < h; y += STEP) {
 		for(int x = 0; x < w; x += STEP) {
 			if(true || kinect.getDepthPixels()[x + y*w] > 0) {
-				*color++ = kinect.getColorAt(x,y);
+				*color++ = ofColor(100);//kinect.getColorAt(x,y);
 				*position++ = kinect.getWorldCoordinateAt(x, y);
 			} else {
 				*color++;
@@ -129,6 +129,11 @@ void Kinect::close() {
 }
 
 //---------
+int Kinect::outputPointCount() {
+	return (this->kinect.getWidth() / STEP) * (this->kinect.getHeight() / STEP);
+}
+
+//---------
 ofTexture & Kinect::getDepthTexture() {
 	return this->kinect.getDepthTextureReference();
 }
@@ -136,6 +141,11 @@ ofTexture & Kinect::getDepthTexture() {
 //---------
 ofTexture & Kinect::getRgbTexture() {
 	return this->kinect.getTextureReference();
+}
+
+//---------
+vector<ofVec3f> & Kinect::getObjectPoints() {
+	return this->whiteMesh.getVertices();
 }
 
 //---------
