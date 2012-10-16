@@ -9,7 +9,7 @@ ParticleRenderer::ParticleRenderer(){
 	minX = 0;
 	maxX = 100;
 	points = NULL;
-	
+	bottomClip = 0;
 }
 
 void ParticleRenderer::setup(int maxParticles){
@@ -52,7 +52,7 @@ void ParticleRenderer::update(){
 	totalParticles = 0;
 	vector<int> validIndices;
 	for(int i = 0; i < points->size(); i++){
-		if( (*points)[i].z > 0){
+		if( (*points)[i].z > 0 && (*points)[i].y > bottomClip){
 			validIndices.push_back(i);
 		}
 	}
@@ -90,8 +90,6 @@ void ParticleRenderer::update(){
 		emitters[i].update();
 	}
 	
-	//cout << "updated " << meshBuilder.validVertIndices.size() << endl;
-	
 	copyVertsToMesh();
 	
 }
@@ -109,13 +107,13 @@ void ParticleRenderer::draw(){
 	ofScale(0.001, 0.001, 0.001);
 
 	ofMesh m;
-	m.getVertices().assign(points->begin(), points->end());
+//	m.getVertices().assign(points->begin(), points->end());
 //	for(int i = 0; i < points->size(); i++){
 //		//for(int i = 0; i < meshBuilder.validVertIndices.size(); i++){
 //		ofVec3f* pos = (*points)[i];
 //		m.addVertex(*pos);
 //	}
-	m.drawVertices();
+//	m.drawVertices();
 	
 	
 	ofEnableAlphaBlending();

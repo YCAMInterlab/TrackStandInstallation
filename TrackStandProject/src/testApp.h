@@ -8,6 +8,7 @@
 #include "KinectSet.h"
 #include "Kinect.h"
 #include "ofxRGBDMeshBuilder.h"
+#include "ofxGui.h"
 
 class testApp : public ofBaseApp{
   public:
@@ -26,6 +27,8 @@ class testApp : public ofBaseApp{
 	void gotMessage(ofMessage msg);
 	void exit();
 
+	ofxGui smallGui;
+	
 	ofxGameCamera cam;
 	ofxGrabCam grabcam;
 	

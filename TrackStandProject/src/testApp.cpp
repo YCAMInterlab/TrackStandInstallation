@@ -2,6 +2,7 @@
 
 //--------------------------------------------------------------
 void testApp::setup(){
+	
 	ofBackground(0);
 	ofEnableAlphaBlending();
 	ofSetFrameRate(60);
@@ -47,12 +48,15 @@ void testApp::setup(){
 //		}
 		
 	}
+	
 	cam.setup();
 	cam.setFarClip(100);
 	cam.setNearClip(.01);
 	cam.autosavePosition = true;
 	cam.loadCameraPosition();
 	cam.speed *= .05;
+	
+	smallGui.setup()
 }
 
 //--------------------------------------------------------------

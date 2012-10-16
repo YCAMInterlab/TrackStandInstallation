@@ -39,6 +39,8 @@ class ParticleRenderer {
 	float lifeSpan;
 	float lifeSpanVariance;
 
+	float bottomClip;
+	
 	ParticleRenderer();
 	
 	void setup(int maxParticles);
