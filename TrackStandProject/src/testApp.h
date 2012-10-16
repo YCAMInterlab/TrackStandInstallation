@@ -7,6 +7,7 @@
 #include "ofxGameCamera.h"
 #include "KinectSet.h"
 #include "Kinect.h"
+#include "ofxRGBDMeshBuilder.h"
 
 class testApp : public ofBaseApp{
   public:
@@ -35,6 +36,9 @@ class testApp : public ofBaseApp{
 	ofxTimeline recordingTest;
 	ofxTLDepthImageSequence depthSequence;
 	
-	Device * kinect[2];
+	Kinect * kinect[2];
 	KinectSet kinects;
+	
+	vector<ofVec3f*> points;
+	ofxRGBDMeshBuilder meshBuilder;
 };

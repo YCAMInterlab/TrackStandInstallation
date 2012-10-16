@@ -6,15 +6,17 @@
 #include "ForcePerlin.h"
 #include "ForceSpin.h"
 #include "ParticleGenerator.h"
-#include "ofxRGBDMeshBuilder.h"
+//#include "ofxRGBDMeshBuilder.h"
+#include "Kinect.h"
 
 class ParticleRenderer {
   public:
 	
 	//update this ever frame;
-	ofxRGBDMeshBuilder meshBuilder;
+//	ofxRGBDMeshBuilder meshBuilder;
 	
-	vector<ofVec3f*>* points;
+	Kinect* kinect;
+	vector<ofVec3f>* points;
 	
 	float minX;
 	float maxX;

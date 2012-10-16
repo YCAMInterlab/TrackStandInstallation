@@ -43,13 +43,20 @@ void ParticleRenderer::setup(int maxParticles){
 
 void ParticleRenderer::update(){
 //	perlinForce->amplitude = .2;
-	return;
+//	return;
 	if(points == NULL){
 		return;
 	}
 	
 	perlinForce->update();
 	totalParticles = 0;
+	vector<int> validIndices;
+	for(int i = 0; i < points->size(); i++){
+		if( (*points)[i].z > 0){
+			validIndices.push_back(i);
+		}
+	}
+	
 	for(int i = 0; i < emitters.size(); i++){
 		emitters[i].birthRate = 0;
 		emitters[i].freeze = false;
@@ -64,19 +71,19 @@ void ParticleRenderer::update(){
 	
 	//cout << "particles per emitter " << particlesPerEmitter << " max allowd particles " << maxAllowedParticles << endl;
 	//for(int i = 0; i < meshBuilder.getMesh().getVertices().size(); i++){
-	for(int i = 0; i < points->size(); i++){
+	//for(int i = 0; i < points->size(); i++){
+	for(int i = 0; i < validIndices.size(); i++){
 	//for(int i = 0; i < meshBuilder.validVertIndices.size(); i++){
-		ofVec3f* pos = (*points)[i];
-		if(pos->x > minX && pos->x < maxX){
-		
+		if(i < emitters.size()){
+			ofVec3f pos = (*points)[ validIndices[i] ];
 			ParticleGenerator& g = emitters[i];
 			g.birthRate = birthRate; //disable invisible verts
 			g.lifespan  = lifeSpan;
 			g.lifespanVariance = lifeSpanVariance;
 	//		g.position =  meshBuilder.getMesh().getVertices()[meshBuilder.validVertIndices[i]];
-			g.position = *pos;
+			g.position = pos;
 			g.remainingParticles = particlesPerEmitter;
-		}		
+		}
 	}
 	
 	//    cout << " total particles " << totalParticles << endl;
@@ -92,19 +99,28 @@ void ParticleRenderer::update(){
 
 void ParticleRenderer::draw(){
 //	meshBuilder.draw();
-	ofMesh m;
-	for(int i = 0; i < points->size(); i++){
-		
-		//for(int i = 0; i < meshBuilder.validVertIndices.size(); i++){
-		ofVec3f* pos = (*points)[i];
-		m.addVertex(*pos);
-	}
-	m.drawVertices();
 	//render dots
 	ofPushStyle();
 	glPushMatrix();
 	glPushAttrib(GL_ENABLE_BIT);
-	ofScale(1,-1,1);
+
+	
+	kinect->getNode().transformGL();
+	
+	ofScale(1, -1, -1);
+	ofScale(0.001, 0.001, 0.001);
+
+	ofMesh m;
+	m.getVertices().assign(points->begin(), points->end());
+//	for(int i = 0; i < points->size(); i++){
+//		
+//		//for(int i = 0; i < meshBuilder.validVertIndices.size(); i++){
+//		ofVec3f* pos = (*points)[i];
+//		m.addVertex(*pos);
+//	}
+	m.drawVertices();
+	
+	
 	ofEnableAlphaBlending();
 	//		if(useShaderToggle){
 	if(false){

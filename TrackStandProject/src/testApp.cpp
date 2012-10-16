@@ -7,25 +7,11 @@ void testApp::setup(){
 	ofSetFrameRate(60);
 	ofEnableSmoothing();
 	ofToggleFullscreen();
-	
+	ofxTimeline::removeCocoaMenusFromGlut("TrackStand");
+
 	trackController.setup(4);
 	trackController.setWidth(ofGetScreenWidth()/2);
 	
-	
-	kinect[0] = new Kinect(0, false);
-	kinect[1] = new Kinect(1, false);
-	kinects.add(*kinect[0]);
-	kinects.add(*kinect[1]);
-	
-	float widthPerSection = kinects.getWidth() / 4;
-	for(int i = 0; i < 4; i++){
-		
-		trackController.particleRenderers[i]->minX = widthPerSection;
-		trackController.particleRenderers[i]->points = &kinects.highFiveTagTeam();
-	}
-	
-	ofxTimeline::removeCocoaMenusFromGlut("TrackStand");
-
 	useTestRecording = false;
 	//set up test
 	if(useTestRecording){
@@ -37,17 +23,34 @@ void testApp::setup(){
 
 //		particleRenderer.meshBuilder.setDepthPixels(depthSequence.getDepthImageSequence()->getPixels());
 		recordingTest.setDurationInMillis(depthSequence.getDepthImageSequence()->getDurationInMillis());
+		float widthPerSection = 640 / 4;
+//		for(int i = 0; i < 4; i++){
+//			trackController.particleRenderers[i]->minX = widthPerSection;
+//			trackController.particleRenderers[i]->points = &points;
+//		}
 	}
-	
+	else{
+		kinect[0] = new Kinect(0, false);
+//		kinect[1] = new Kinect(1, false);
+		kinects.add(*kinect[0]);	
+//		kinects.add(*kinect[1]);
+		
+		trackController.particleRenderer1->points = &kinect[0]->getObjectPoints();
+		trackController.particleRenderer2->points = &kinect[0]->getObjectPoints();
+		trackController.particleRenderer1->kinect = kinect[0];
+		trackController.particleRenderer2->kinect = kinect[0];
+		
+		float widthPerSection = kinects.getWidth() / 4;
+//		for(int i = 0; i < 4; i++){
+//			trackController.particleRenderers[i]->minX = widthPerSection;
+//			trackController.particleRenderers[i]->points = &kinects.highFiveTagTeam();
+//		}
+		
+	}
 	cam.setup();
 	cam.autosavePosition = true;
 	cam.loadCameraPosition();
-	
-
-//	trackController.particles = &particleRenderer;
-//	trackController.particles = &particleRenderer;
-
-
+	cam.speed *= .1;
 }
 
 //--------------------------------------------------------------
@@ -73,8 +76,8 @@ void testApp::update(){
 void testApp::draw(){
 	trackController.draw();
 	if(useTestRecording){
-		recordingTest.setOffset(trackController.drawRect.getBottomLeft());
-		recordingTest.draw();
+//		recordingTest.setOffset(trackController.drawRect.getBottomLeft());
+//		recordingTest.draw();
 	}
 	
 	previewRect = ofRectangle(trackController.drawRect.getTopRight(),
