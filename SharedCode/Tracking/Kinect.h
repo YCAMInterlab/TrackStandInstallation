@@ -6,7 +6,7 @@
 #include "Device.h"
 #include "ofxKinect.h"
 
-#define STEP 1
+#define STEP 2
 
 class Kinect : public Device {
 public:
@@ -15,7 +15,7 @@ public:
 	void draw();
 	void drawWhitePoints();
 	void close();
-	int outputPointCount();
+	int outputPointCount() const;
 	
 	ofTexture & getDepthTexture();
 	ofTexture & getRgbTexture();
@@ -34,4 +34,5 @@ protected:
 #endif
 	ofMesh coloredMesh;
 	ofMesh whiteMesh;
+	int _objectPointCount;
 };

@@ -27,6 +27,7 @@ class testApp : public ofBaseApp{
 	void exit();
 
 	ofxGameCamera cam;
+	ofxGrabCam grabcam;
 	
 	TrackController trackController;
 	

@@ -20,6 +20,8 @@ Kinect::Kinect(int index, bool registration) {
 	this->coloredMesh.getVertices().resize(kinect.getWidth()*kinect.getHeight() / (STEP*STEP));
 	this->coloredMesh.getColors().resize(kinect.getWidth()*kinect.getHeight() / (STEP*STEP));
 	this->whiteMesh.getVertices().resize(kinect.getWidth()*kinect.getHeight() / (STEP*STEP));
+	
+	_objectPointCount = (this->kinect.getWidth() / STEP) * (this->kinect.getHeight() / STEP);
 }
 
 //---------
@@ -107,8 +109,7 @@ void Kinect::drawWhitePoints() {
 	// the projected points are 'upside down' and 'backwards'
 	ofScale(1, -1, -1);
 	ofScale(0.001, 0.001, 0.001);
-	
-	ofPushStyle();
+
 	glPointSize(1.0f);
 	whiteMesh.drawVertices();
 	ofPopMatrix();
@@ -129,8 +130,8 @@ void Kinect::close() {
 }
 
 //---------
-int Kinect::outputPointCount() {
-	return (this->kinect.getWidth() / STEP) * (this->kinect.getHeight() / STEP);
+int Kinect::outputPointCount() const {
+	return _objectPointCount;
 }
 
 //---------

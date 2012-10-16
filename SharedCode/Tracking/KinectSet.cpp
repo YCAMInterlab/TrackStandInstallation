@@ -78,6 +78,17 @@ void KinectSet::add(Device & device) {
 
 //--------
 void KinectSet::update() {
+	vector<Device*>::iterator it;
+	for (it = this->devices.begin(); it != this->devices.end(); it++) {
+		(**it).update();
+	}
+	updateTracking();
+	updateWorldPoints();
+}
+
+//--------
+void KinectSet::updateTracking() {
+	
 	this->fromAbove.begin();
 	ofClear(0);
 	
@@ -91,7 +102,6 @@ void KinectSet::update() {
 	ofColor(1);
 	vector<Device*>::iterator it;
 	for (it = this->devices.begin(); it != this->devices.end(); it++) {
-		(**it).update();
 		(**it).drawWhitePoints();
 	}
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -103,10 +113,14 @@ void KinectSet::update() {
 	cv::cvtColor(ofxCv::toCv(pixelsCol), pixelsMono, CV_RGB2GRAY);
 	contourFinder.findContours(pixelsMono);
 	tracker.track(contourFinder.getBoundingRects());
-	
+
+}
+
+//--------
+void KinectSet::updateWorldPoints() {
 	activePoints.clear();
 	//prep output points
-	#pragma omp parallel for
+	//#pragma omp parallel for
 	for (int i=0; i<this->devices.size(); i++) {
 		int offset = 0;
 		for (int j=0; j<i; j++)
@@ -114,11 +128,21 @@ void KinectSet::update() {
 		ofVec3f * world = & this->combinedPointsInWorldSpace[offset];
 		ofVec3f * object = & this->devices[i]->getObjectPoints()[0];
 		
-		const ofMatrix4x4 T = this->devices[i]->getGlobalTransformMatrix();
+		ofMatrix4x4 flip;
+		flip.makeScaleMatrix(-1.0f, 1.0f, 1.0f);
+		ofMatrix4x4 T = this->devices[i]->getGlobalTransformMatrix().getInverse();
+		ofMatrix4x4 S;
+		S.makeScaleMatrix(0.001, -0.001, -0.001);
+		
+		ofMatrix4x4 upScale;
+		upScale.makeScaleMatrix(ofVec3f(1000.0f, 1000.0f, 1000.0f));
+		T = (upScale.getInverse() * T) * (S * upScale);
+		
+		ofVec3f translate = (i==0) ? ofVec3f(-0.170919, 0.886452, 0) : ofVec3f(5.03754, 0.497932, -0.107265);
 		
 		for (int point=0; point < this->devices[i]->outputPointCount(); point++) {
-			*world = *object * T;
-			if (world->y > 0 && object->z > 0) {
+			*world = (*object * T) * 1000.0f;
+			if (true || world->y > 0 && world->x < 4000.0f && object->z > 0.0f) {
 				activePoints.push_back(world);
 			}
 			*world++;
@@ -204,4 +228,10 @@ void KinectSet::save() {
 	
 	xml.save(this->getFilename());
 #endif
+}
+
+void KinectSet::close(){
+	for (vector<Device*>::iterator it = this->devices.begin(); it != this->devices.end() ; it++) {
+		(**it).close();
+	}
 }
