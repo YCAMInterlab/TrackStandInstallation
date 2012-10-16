@@ -83,7 +83,7 @@ void KinectSet::update() {
 		(**it).update();
 	}
 	updateTracking();
-	updateWorldPoints();
+	//updateWorldPoints();
 }
 
 //--------
