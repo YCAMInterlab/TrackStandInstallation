@@ -40,5 +40,7 @@ class TrackController {
   protected:
 
 	float timelineWidth;
+	
+	vector<ofVec2f> people;
 };
 

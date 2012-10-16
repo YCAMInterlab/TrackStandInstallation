@@ -91,6 +91,9 @@ void TrackController::draw(){
 	}
 	ofDrawBitmapString(ofToString(particleRenderer1->totalParticles+particleRenderer2->totalParticles), ofGetWidth() - 100, ofGetHeight()-20);
 
+	for (int i=0; i<this->people.size(); i++) {
+		ofCircle(this->people[i].x, this->people[i].y, 30);
+	}
 }
 
 void TrackController::drawParticles(){
@@ -137,6 +140,8 @@ void TrackController::update(){
 
 
 void TrackController::setPositions(vector<ofVec2f> positions){
+	this->people = positions;
+	
 	drawRect = ofRectangle(0,0,0,0);
 	for(int i = 0; i < timelines.size(); i++){
 		drawRect = drawRect.getUnion(timelines[i]->getDrawRect());

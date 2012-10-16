@@ -70,6 +70,7 @@ void testApp::update(){
 		}
 	}
 
+	trackController.setPositions(this->kinects.getPeopleInScreenSpace());
 	trackController.update();
 	
 }

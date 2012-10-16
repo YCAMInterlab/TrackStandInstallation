@@ -16,6 +16,7 @@ public:
 	PersonCentroid()
 	:startedDying(0) {
 	}
+	ofVec2f getPosition() { return this->smooth; }
 	void setup(const cv::Rect& track);
 	void update(const cv::Rect& track);
 	void kill();
