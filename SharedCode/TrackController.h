@@ -9,6 +9,7 @@
 #include "ofMain.h"
 #include "ofxTimeline.h"
 #include "ParticleRenderer.h"
+#include "ofxTLAudioTrack.h"
 
 class TrackController {
   public:
@@ -26,11 +27,15 @@ class TrackController {
 	bool editMode;
 	
 	ofRectangle drawRect;
-	vector<ParticleRenderer*> particleRenderers;
+//	vector<ParticleRenderer*> particleRenderers;
+	ParticleRenderer* particleRenderer1;
+	ParticleRenderer* particleRenderer2;
 	
+	vector<ofxTLAudioTrack*> audioTracks;
 	void toggleFooters();
 	void togglePlayForTrackAtPoint(ofVec2f point);
 	void fitToScreenHeight();
+	float zoomPercent;
 	
   protected:
 

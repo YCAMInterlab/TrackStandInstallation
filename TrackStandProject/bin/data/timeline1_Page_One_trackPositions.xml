@@ -1,50 +1,56 @@
 <positions>
     <element name="birth rate">
         <x>0.000000000</x>
-        <y>327.500000000</y>
-        <width>960.000000000</width>
-        <height>32.750000000</height>
+        <y>385.714324951</y>
+        <width>840.000000000</width>
+        <height>38.571430206</height>
     </element>
     <element name="gravity amp">
         <x>0.000000000</x>
-        <y>458.500000000</y>
-        <width>960.000000000</width>
-        <height>32.750000000</height>
+        <y>501.428649902</y>
+        <width>840.000000000</width>
+        <height>38.571430206</height>
     </element>
     <element name="life span">
         <x>0.000000000</x>
-        <y>360.250000000</y>
-        <width>960.000000000</width>
-        <height>32.750000000</height>
+        <y>424.285766602</y>
+        <width>840.000000000</width>
+        <height>38.571430206</height>
     </element>
     <element name="perlin amp">
         <x>0.000000000</x>
-        <y>393.000000000</y>
-        <width>960.000000000</width>
-        <height>32.750000000</height>
+        <y>462.857208252</y>
+        <width>840.000000000</width>
+        <height>38.571430206</height>
     </element>
     <element name="perlin density">
         <x>0.000000000</x>
-        <y>425.750000000</y>
-        <width>960.000000000</width>
-        <height>32.750000000</height>
+        <y>554.000000000</y>
+        <width>840.000000000</width>
+        <height>30.000000000</height>
     </element>
     <element name="primary color">
         <x>0.000000000</x>
-        <y>262.000000000</y>
-        <width>960.000000000</width>
-        <height>32.750000000</height>
+        <y>270.000000000</y>
+        <width>840.000000000</width>
+        <height>38.571430206</height>
     </element>
     <element name="secondary color">
         <x>0.000000000</x>
-        <y>294.750000000</y>
-        <width>960.000000000</width>
-        <height>32.750000000</height>
+        <y>308.571441650</y>
+        <width>840.000000000</width>
+        <height>38.571430206</height>
+    </element>
+    <element name="sound">
+        <x>0.000000000</x>
+        <y>347.142883301</y>
+        <width>840.000000000</width>
+        <height>38.571430206</height>
     </element>
     <element name="spin force">
         <x>0.000000000</x>
-        <y>491.250000000</y>
-        <width>960.000000000</width>
-        <height>32.750000000</height>
+        <y>626.000000000</y>
+        <width>840.000000000</width>
+        <height>30.000000000</height>
     </element>
 </positions>
