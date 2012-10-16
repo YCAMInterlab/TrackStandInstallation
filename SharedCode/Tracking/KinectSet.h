@@ -39,6 +39,8 @@ protected:
 	
 	vector<int> pointsPerDevice;
 	
+	
+	
 #ifdef USE_GRABSCENE
 	ofParameter<float> height;
 	ofParameter<float> width;
