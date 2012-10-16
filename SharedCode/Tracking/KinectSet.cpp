@@ -230,8 +230,27 @@ void KinectSet::save() {
 #endif
 }
 
+//--------
 void KinectSet::close(){
 	for (vector<Device*>::iterator it = this->devices.begin(); it != this->devices.end() ; it++) {
 		(**it).close();
 	}
+}
+
+//--------
+vector<ofVec2f> KinectSet::getPeopleInScreenSpace() {
+	vector<ofVec2f> result;
+	vector<PersonCentroid> people = this->tracker.getFollowers();
+	for (int i=0; i<people.size(); i++) {
+		ofVec2f pos = people[i].getPosition();
+		pos.x /= 5.20f * (1920.0f / 1200.0f);
+		pos.y /= 5.20f;
+		
+		pos.y = 1200.0f - (pos.y * 1200.0f);
+		pos.x = 1920.0f - (pos.x * 1920.0f);
+		
+		result.push_back(pos);
+	}
+	
+	return result;
 }

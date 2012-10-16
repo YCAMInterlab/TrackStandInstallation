@@ -28,6 +28,7 @@ public:
 	vector<Device*> & getDevices() { return this->devices; }
 	void close();
 	void drawFbo() { this->fromAbove.getTextureReference().draw(0,0); }
+	vector<ofVec2f> getPeopleInScreenSpace();
 protected:
 	void updateRegion(float & dummy);
 	void updateResolution(int & dummy);
