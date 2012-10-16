@@ -11,10 +11,13 @@ void testApp::setup(){
 	set.devices.push_back(kinect[1]);
 
 	scene.init(camera);
+#ifdef USE_GRABSCENE
 	scene.add(kinect[0]);
 	scene.add(kinect[1]);
-	scene.add(new GrabScene::Nodes::Grid());
 	scene.add(&set);
+#endif
+	scene.add(new GrabScene::Nodes::Grid());
+
 	
 	camera.setPosition(10.0f, 3.0f, 5.0f);
 	camera.lookAt(ofVec3f(2.0f, 1.0f, -3.0f));

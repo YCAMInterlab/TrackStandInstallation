@@ -29,7 +29,11 @@ void OpenNI::update() {
 
 //---------
 void OpenNI::draw() {
+#ifdef USE_GRABSCENE
 	this->getNode().transformGL();
+#else
+	this->transformGL();
+#endif
 	
 	this->drawPointCloud();
 	
@@ -46,7 +50,11 @@ void OpenNI::draw() {
 	this->getRgbTexture().draw(0.0f, 0.0f);
 	ofPopMatrix();
 	
+#ifdef USE_GRABSCENE
 	this->getNode().restoreTransformGL();
+#else
+	this->restoreTransformGL();
+#endif
 }
 
 //---------

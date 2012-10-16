@@ -2,7 +2,7 @@
 <Width>4</Width>
 <Depth>8</Depth>
 <Resolution>128</Resolution>
-<Minimum area>2</Minimum area>
+<Minimum area>3</Minimum area>
 <Maximum area>128</Maximum area>
 <Threshold>50</Threshold>
 <Persistence>15</Persistence>

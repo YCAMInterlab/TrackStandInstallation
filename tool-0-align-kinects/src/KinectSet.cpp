@@ -6,6 +6,7 @@
 
 //--------
 KinectSet::KinectSet() {
+#ifdef USE_GRABSCENE
 	height.set("Height", 5, 0, 10);
 	width.set("Width", 4, 0, 10);
 	depth.set("Depth", 8, 0, 10);
@@ -33,6 +34,7 @@ KinectSet::KinectSet() {
 	minArea.addListener(this, & KinectSet::updateTrackingParameters);
 	maxArea.addListener(this, & KinectSet::updateTrackingParameters);
 	threshold.addListener(this, & KinectSet::updateTrackingParameters);
+#endif
 	
 	float dummy;
 	int dummyInt;
@@ -74,7 +76,7 @@ void KinectSet::update() {
 	glMatrixMode(GL_PROJECTION);
 	glLoadMatrixf(region.getPtr());
 	glMatrixMode(GL_MODELVIEW);
-	glLoadMatrixf(this->getNode().getGlobalTransformMatrix().getInverse().getPtr());
+	glLoadMatrixf(this->getGlobalTransformMatrix().getInverse().getPtr());
 	
 	ofPushStyle();
 	glBlendFunc(GL_ONE, GL_ONE);
@@ -96,10 +98,10 @@ void KinectSet::update() {
 }
 
 //--------
-void KinectSet::draw() {
+void KinectSet::customDraw() {
 	ofPushStyle();
 	ofPushMatrix();
-	glMultMatrixf((this->getNode().getGlobalTransformMatrix().getInverse() * region).getInverse().getPtr());
+	glMultMatrixf(region.getInverse().getPtr());
 	ofSetLineWidth(3.0f);
 	ofNoFill();
 	ofBox(2.0f);
@@ -132,6 +134,7 @@ void KinectSet::load() {
 	ofxXmlSettings xml;
 	xml.load(this->getFilename());
 	
+#ifdef USE_GRABSCENE
 	xml.getValue(height.getName(), height);
 	xml.getValue(width.getName(), width);
 	xml.getValue(depth.getName(), depth);
@@ -140,10 +143,22 @@ void KinectSet::load() {
 	xml.getValue(maxArea.getName(), maxArea);
 	xml.getValue(threshold.getName(), threshold);
 	xml.getValue(persistence.getName(), persistence);
+#else
+	xml.getValue("Height", height);
+	xml.getValue("Width", width);
+	xml.getValue("Depth", depth);
+	xml.getValue("Resolution", resolution);
+	xml.getValue("Minimum area", minArea);
+	xml.getValue("Maximum area", maxArea);
+	xml.getValue("Threshold", threshold);
+	xml.getValue("Persistence", persistence);
+	xml.getValue("Max position jump", maxDistance);
+#endif
 }
 
 //-----------
 void KinectSet::save() {
+#ifdef USE_GRABSCENE
 	ofxXmlSettings xml;
 	
 	xml.addValue(height.getName(), height);
@@ -156,5 +171,5 @@ void KinectSet::save() {
 	xml.addValue(persistence.getName(), persistence);
 	
 	xml.save(this->getFilename());
-	
+#endif
 }

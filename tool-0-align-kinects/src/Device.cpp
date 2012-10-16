@@ -6,8 +6,10 @@
 
 //---------
 Device::Device() {
+#ifdef USE_GRABSCENE
 	this->pointSize.set("Point size", 2.0f, 1.0f, 10.0f);
 	this->parameters.add(this->pointSize);
+#endif
 }
 //---------
 string Device::getFilename() const {

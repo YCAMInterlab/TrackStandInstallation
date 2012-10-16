@@ -11,7 +11,9 @@ Kinect::Kinect(int index, bool registration) {
 	this->kinect.init(false, registration, registration);
 	this->kinect.open(index);
 	this->loadTransform();
+#ifdef USE_GRABSCENE
 	this->parameters.add(angle);
+#endif
 	
 	angle.set("Angle", 0, -30, 30);
 	angle.addListener(this, & Kinect::updateAngle);
@@ -54,12 +56,14 @@ void Kinect::update() {
 
 //---------
 void Kinect::draw() {
-	
+#ifdef USE_GRABSCENE
 	this->getNode().transformGL();
-	
+#else
+	this->transformGL();
+#endif
 
 	//colored point mesh
-	glPointSize(this->pointSize);
+	glPointSize(pointSize);
 	ofPushMatrix();
 	// the projected points are 'upside down' and 'backwards'
 	ofScale(1, -1, -1);
@@ -81,8 +85,12 @@ void Kinect::draw() {
 	ofTranslate(0.0f, 0.0f, -2.0f);
 	this->getRgbTexture().draw(0.0f, 0.0f);
 	ofPopMatrix();
-	
+
+#ifdef USE_GRABSCENE
 	this->getNode().restoreTransformGL();
+#else
+	this->restoreTransformGL();
+#endif
 }
 
 //---------
@@ -90,7 +98,11 @@ void Kinect::drawWhitePoints() {
 	ofPushMatrix();
 	ofPushStyle();
 	
+#ifdef USE_GRABSCENE
 	this->getNode().transformGL();
+#else
+	this->transformGL();
+#endif
 	
 	// the projected points are 'upside down' and 'backwards'
 	ofScale(1, -1, -1);
@@ -101,7 +113,12 @@ void Kinect::drawWhitePoints() {
 	whiteMesh.drawVertices();
 	ofPopMatrix();
 	
+#ifdef USE_GRABSCENE
 	this->getNode().restoreTransformGL();
+#else
+	this->restoreTransformGL();
+#endif
+	
 	ofPopStyle();
 	ofPopMatrix();
 }
