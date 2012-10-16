@@ -51,9 +51,9 @@ void TrackController::setup(int numTracks){
 	}
 	
 	particleRenderer1 = new ParticleRenderer();
-	particleRenderer1->setup(15000);
+	particleRenderer1->setup(50000);
 	particleRenderer2 = new ParticleRenderer();
-	particleRenderer2->setup(15000);
+	particleRenderer2->setup(50000);
 
 }
 

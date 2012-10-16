@@ -52,7 +52,7 @@ void testApp::setup(){
 	cam.setNearClip(.01);
 	cam.autosavePosition = true;
 	cam.loadCameraPosition();
-	cam.speed *= .1;
+	cam.speed *= .05;
 }
 
 //--------------------------------------------------------------

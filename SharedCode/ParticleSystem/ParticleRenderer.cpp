@@ -62,12 +62,11 @@ void ParticleRenderer::update(){
 		emitters[i].freeze = false;
 		totalParticles += emitters[i].particles.size();
 	}
-	
 	int particlesPerEmitter = 0;
-	if(points->size() > 0 ){
-//	if(meshBuilder.validVertIndices.size() > 0 ){
-		particlesPerEmitter = (maxAllowedParticles - totalParticles) / points->size() - 1;
+	if(validIndices.size() > 0 ){
+		particlesPerEmitter = (maxAllowedParticles - totalParticles) / validIndices.size();
 	}
+//	cout << "valid verts " << validIndices.size() << "particles per emitter " << particlesPerEmitter << " max particles " << maxAllowedParticles << endl;
 	
 	//cout << "particles per emitter " << particlesPerEmitter << " max allowd particles " << maxAllowedParticles << endl;
 	//for(int i = 0; i < meshBuilder.getMesh().getVertices().size(); i++){
@@ -103,7 +102,6 @@ void ParticleRenderer::draw(){
 	ofPushStyle();
 	glPushMatrix();
 	glPushAttrib(GL_ENABLE_BIT);
-
 	
 	kinect->getNode().transformGL();
 	
@@ -113,7 +111,6 @@ void ParticleRenderer::draw(){
 	ofMesh m;
 	m.getVertices().assign(points->begin(), points->end());
 //	for(int i = 0; i < points->size(); i++){
-//		
 //		//for(int i = 0; i < meshBuilder.validVertIndices.size(); i++){
 //		ofVec3f* pos = (*points)[i];
 //		m.addVertex(*pos);
