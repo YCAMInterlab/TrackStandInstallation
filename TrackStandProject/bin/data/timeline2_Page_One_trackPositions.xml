@@ -1,57 +1,57 @@
 <positions>
     <element name="birth rate">
         <x>0.000000000</x>
-        <y>519.714294434</y>
+        <y>256.000000000</y>
         <width>1920.000000000</width>
-        <height>38.571430206</height>
+        <height>0.000000000</height>
     </element>
     <element name="flicker">
         <x>0.000000000</x>
-        <y>703.999938965</y>
+        <y>286.000000000</y>
         <width>1920.000000000</width>
-        <height>40.000000000</height>
+        <height>0.000000000</height>
     </element>
     <element name="gravity amp">
         <x>0.000000000</x>
-        <y>665.428527832</y>
+        <y>280.000000000</y>
         <width>1920.000000000</width>
-        <height>38.571430206</height>
+        <height>0.000000000</height>
     </element>
     <element name="life span">
         <x>0.000000000</x>
-        <y>558.285705566</y>
+        <y>262.000000000</y>
         <width>1920.000000000</width>
-        <height>38.571430206</height>
+        <height>0.000000000</height>
     </element>
     <element name="perlin amp">
         <x>0.000000000</x>
-        <y>596.857116699</y>
+        <y>268.000000000</y>
         <width>1920.000000000</width>
-        <height>38.571430206</height>
+        <height>0.000000000</height>
     </element>
     <element name="perlin density">
         <x>0.000000000</x>
-        <y>635.428527832</y>
+        <y>274.000000000</y>
         <width>1920.000000000</width>
-        <height>30.000000000</height>
+        <height>0.000000000</height>
     </element>
     <element name="primary color">
         <x>0.000000000</x>
-        <y>404.000000000</y>
+        <y>238.000000000</y>
         <width>1920.000000000</width>
-        <height>38.571430206</height>
+        <height>0.000000000</height>
     </element>
     <element name="secondary color">
         <x>0.000000000</x>
-        <y>442.571441650</y>
+        <y>244.000000000</y>
         <width>1920.000000000</width>
-        <height>38.571430206</height>
+        <height>0.000000000</height>
     </element>
     <element name="sound">
         <x>0.000000000</x>
-        <y>481.142883301</y>
+        <y>250.000000000</y>
         <width>1920.000000000</width>
-        <height>38.571430206</height>
+        <height>0.000000000</height>
     </element>
     <element name="spin force">
         <x>0.000000000</x>

@@ -108,7 +108,7 @@ void testApp::draw(){
 	
 	//kinects.drawFbo();
 	ofSetColor(255);
-	ofDrawBitmapString(ofToString(ofGetFrameRate(),2), ofGetWidth() - 100, ofGetHeight()-40);
+	ofDrawBitmapString(ofToString(ofGetFrameRate(),2), ofGetWidth() - 100, ofGetHeight()-100);
 }
 
 //--------------------------------------------------------------

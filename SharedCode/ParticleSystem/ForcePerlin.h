@@ -22,6 +22,7 @@ class ForcePerlin : public Force {
     
     void applyForce(vector<Particle>& particles){
         //currentOffset = 0;
+		#pragma omp parallel for
         for(int i = 0; i < particles.size(); i++){
             ofVec3f& pos = particles[i].position;
             particles[i].force +=  ofVec3f(ofSignedNoise(pos.x/density, pos.y/density, pos.z/density, currentOffset)*amplitude,
