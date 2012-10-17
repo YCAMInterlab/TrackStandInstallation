@@ -21,6 +21,8 @@ class ParticleGenerator {
 		secondaryColor = NULL;
         //setup forces
         freeze = false;
+		currentAudioBin = 0;
+		audioData = NULL;
     }
     
     void update(){
@@ -43,6 +45,20 @@ class ParticleGenerator {
 			if(showType && ofRandomuf() < typeChance){
 				p.hasType = true;
 			}
+			
+			currentAudioBin++;
+			if(currentAudioBin >= maxBin){
+				currentAudioBin = minBin;
+			}
+			p.flickerPeriod = ofRandom(3);
+			p.flickerPhase = ofRandom(2*M_PI);
+			if(audioData != NULL && audioData->size() > 0){
+				p.flickerMax = MIN(1.0, (*audioData)[currentAudioBin % audioData->size()]*50);
+			}
+			else{
+				p.flickerMax = 0;
+			}
+			
 			particles.push_back(p);
 			numToBear--;
 			remainingParticles--;
@@ -87,6 +103,10 @@ class ParticleGenerator {
     
 	ofFloatColor* primaryColor;
 	ofFloatColor* secondaryColor;
+	vector<float>* audioData;
+	int minBin;
+	int maxBin;
+	int currentAudioBin;
 	
     int remainingParticles;
     float birthRate;

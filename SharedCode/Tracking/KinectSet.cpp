@@ -111,6 +111,7 @@ void KinectSet::updateTracking() {
 	
 	fromAbove.readToPixels(pixelsCol);
 	cv::cvtColor(ofxCv::toCv(pixelsCol), pixelsMono, CV_RGB2GRAY);
+
 	contourFinder.findContours(pixelsMono);
 	tracker.track(contourFinder.getBoundingRects());
 
@@ -238,14 +239,18 @@ vector<ofVec2f> KinectSet::getPeopleInScreenSpace() {
 	vector<ofVec2f> result;
 	vector<PersonCentroid> people = this->tracker.getFollowers();
 	for (int i=0; i<people.size(); i++) {
-		ofVec2f pos = people[i].getPosition();
+		ofVec2f pos = people[i].getPosition() ;
+		/*
 		pos.x /= 5.20f * (1920.0f / 1200.0f);
 		pos.y /= 5.20f;
 		
 		pos.y = 1200.0f - (pos.y * 1200.0f);
 		pos.x = 1920.0f - (pos.x * 1920.0f);
-		
+		cout << "adding person at position " << pos << endl;
 		result.push_back(pos);
+		 */
+		result.push_back(ofVec2f(ofMap(pos.y, 0, fromAbove.getHeight(), 2100, -100),
+								 ofMap(pos.x, 0, fromAbove.getWidth(), 1200, 100)));
 	}
 	
 	return result;

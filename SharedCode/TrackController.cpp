@@ -43,23 +43,33 @@ void TrackController::setup(int numTracks){
 		timeline->addColorsWithPalette("secondary color", palettes[i]);
 		
 		timeline->addTrack("sound", t);
-		timeline->addLFO("birth rate", ofRange(0, 1.0));
-		timeline->addLFO("life span", ofRange(0, 100));
-		timeline->addLFO("perlin amp", ofRange(0, .2));
-		timeline->addLFO("gravity amp", ofRange(0, .2));
+		timeline->addCurves("birth rate", ofRange(0, 1.0));
+		timeline->addCurves("life span", ofRange(0, 300));
+		timeline->addCurves("perlin amp", ofRange(0, 10.0));
+		timeline->addCurves("perlin density", ofRange(0, 1000));
+		timeline->addCurves("gravity amp", ofRange(-10.0, 10.0), 0.0);
+		timeline->addLFO("flicker");
 		timelines.push_back(timeline);
 	}
 	
 	particleRenderer1 = new ParticleRenderer();
-	particleRenderer1->setup(50000);
+	particleRenderer1->setup(30000);
 	particleRenderer2 = new ParticleRenderer();
-	particleRenderer2->setup(50000);
+	particleRenderer2->setup(25000);
+	currentFFT = NULL;
 
 }
 
 void TrackController::toggleFooters(){
 	for(int i = 0; i < timelines.size(); i++){
-		timelines[i]->setShowZoomer(timelines[i]->toggleShowFooters());
+		bool showTimeControls = timelines[i]->toggleShowFooters();
+		timelines[i]->setShowTimeControls(showTimeControls);
+	}
+}
+
+void TrackController::toggleShowTimelines(){
+	for(int i = 0; i < timelines.size(); i++){
+		timelines[i]->toggleShow();
 	}
 }
 
@@ -91,9 +101,16 @@ void TrackController::draw(){
 	}
 	ofDrawBitmapString(ofToString(particleRenderer1->totalParticles+particleRenderer2->totalParticles), ofGetWidth() - 100, ofGetHeight()-20);
 
-	for (int i=0; i<this->people.size(); i++) {
-		ofCircle(this->people[i].x, this->people[i].y, 30);
+	ofPushStyle();
+	ofNoFill();
+	ofEnableAlphaBlending();
+	ofSetColor(255, 100);
+	if(!editMode){
+		for (int i=0; i<this->people.size(); i++) {
+			ofCircle(this->people[i].x, this->people[i].y, 30);
+		}
 	}
+	ofPopStyle();
 }
 
 void TrackController::drawParticles(){
@@ -101,46 +118,61 @@ void TrackController::drawParticles(){
 //		particleRenderers[i]->draw();
 //	}
 	particleRenderer1->draw();
-	particleRenderer2->draw();
+//	particleRenderer2->draw();
 }
 
 void TrackController::update(){
 
+	bool foundPlaying = false;
 	for(int i  = 0; i < timelines.size(); i++){
 		if(timelines[i]->getIsPlaying()){
-//
-//			particleRenderers[i]->perlinForce->amplitude = timelines[i]->getValue("perlin amp");
-//			particleRenderers[i]->gravityForce->gravity = timelines[i]->getValue("gravity amp");
-//			particleRenderers[i]->primaryColor   = timelines[i]->getColor("primary color");
-//			particleRenderers[i]->secondaryColor = timelines[i]->getColor("secondary color");
-//			particleRenderers[i]->birthRate = timelines[i]->getValue("birth rate");
-//			particleRenderers[i]->lifeSpan = timelines[i]->getValue("life span");
-//			
-
-			particleRenderer1->perlinForce->amplitude = timelines[i]->getValue("perlin amp");
-			particleRenderer1->gravityForce->gravity = timelines[i]->getValue("gravity amp");
-			particleRenderer1->primaryColor   = timelines[i]->getColor("primary color");
-			particleRenderer1->secondaryColor = timelines[i]->getColor("secondary color");
-			particleRenderer1->birthRate = timelines[i]->getValue("birth rate");
-			particleRenderer1->lifeSpan = timelines[i]->getValue("life span");
-
-			particleRenderer2->perlinForce->amplitude = timelines[i]->getValue("perlin amp");
-			particleRenderer2->gravityForce->gravity = timelines[i]->getValue("gravity amp");
-			particleRenderer2->primaryColor   = timelines[i]->getColor("primary color");
-			particleRenderer2->secondaryColor = timelines[i]->getColor("secondary color");
-			particleRenderer2->birthRate = timelines[i]->getValue("birth rate");
-			particleRenderer2->lifeSpan = timelines[i]->getValue("life span");
+			foundPlaying = true;
+			updateSystemToTimeline(timelines[i]);
 		}
 	}
-	
+	if(!foundPlaying && editMode){
+		for(int t = 0; t < timelines.size(); t++){
+			if(timelines[t]->getDrawRect().inside(ofGetMouseX(),ofGetMouseY())){
+				updateSystemToTimeline(timelines[t]);
+				break;
+			}
+		}	
+	}
 	particleRenderer1->update();
-	particleRenderer2->update();
+//	particleRenderer2->update();
 
 }
 
+void TrackController::updateSystemToTimeline(ofxTimeline* timeline){
+	particleRenderer1->perlinForce->amplitude = timeline->getValue("perlin amp");
+	particleRenderer1->perlinForce->density = timeline->getValue("perlin density");
+	particleRenderer1->gravityForce->gravity = timeline->getValue("gravity amp");
+	particleRenderer1->primaryColor   = timeline->getColor("primary color");
+	particleRenderer1->secondaryColor = timeline->getColor("secondary color");
+	particleRenderer1->birthRate = timeline->getValue("birth rate");
+	particleRenderer1->lifeSpan = timeline->getValue("life span");
+	particleRenderer1->maxFlicker = timeline->getValue("flicker");
+	
+	particleRenderer2->perlinForce->amplitude = timeline->getValue("perlin amp");
+	particleRenderer2->perlinForce->density = timeline->getValue("perlin density");
+	particleRenderer2->gravityForce->gravity = timeline->getValue("gravity amp");
+	particleRenderer2->primaryColor   = timeline->getColor("primary color");
+	particleRenderer2->secondaryColor = timeline->getColor("secondary color");
+	particleRenderer2->birthRate = timeline->getValue("birth rate");
+	particleRenderer2->lifeSpan = timeline->getValue("life span");
+	particleRenderer2->maxFlicker = timeline->getValue("flicker");
+	
+//	if(timeline->getTrack("sound") != currentFFT){
+//		currentFFT = (ofxTLAudioTrack*)timeline->getTrack("sound");
+//		int bins = 128;
+//		particleRenderer1->setAudioData(currentFFT->getFFTSpectrum(bins), bins*.1, bins*.5);
+//	}
+	
+}
 
 void TrackController::setPositions(vector<ofVec2f> positions){
 	this->people = positions;
+//	cout << " positions ? " << positions.size() << endl;
 	
 	drawRect = ofRectangle(0,0,0,0);
 	for(int i = 0; i < timelines.size(); i++){

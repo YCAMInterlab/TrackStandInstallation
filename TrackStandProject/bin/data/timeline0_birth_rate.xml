@@ -1,50 +1,68 @@
 <keyframes>
     <key>
-        <type>1</type>
-        <phaseShift>0.000000000</phaseShift>
-        <amplitude>1.000000000</amplitude>
-        <frequency>100.000000000</frequency>
-        <seed>0.000000000</seed>
-        <center>0.000000000</center>
-        <interpolate>1</interpolate>
-        <expInterpolate>1</expInterpolate>
-        <time>00:00:00:982</time>
-        <value>0.333333313</value>
+        <easefunc>0</easefunc>
+        <easetype>0</easetype>
+        <time>00:00:00:211</time>
+        <value>0.206666484</value>
     </key>
     <key>
-        <type>1</type>
-        <phaseShift>0.000000000</phaseShift>
-        <amplitude>1.000000000</amplitude>
-        <frequency>100.000000000</frequency>
-        <seed>0.000000000</seed>
-        <center>0.000000000</center>
-        <interpolate>1</interpolate>
-        <expInterpolate>1</expInterpolate>
-        <time>00:00:01:612</time>
-        <value>0.362162173</value>
+        <easefunc>4</easefunc>
+        <easetype>2</easetype>
+        <time>00:00:21:909</time>
+        <value>0.201219440</value>
     </key>
     <key>
-        <type>1</type>
-        <phaseShift>0.000000000</phaseShift>
-        <amplitude>1.000000000</amplitude>
-        <frequency>100.000000000</frequency>
-        <seed>0.000000000</seed>
-        <center>0.000000000</center>
-        <interpolate>1</interpolate>
-        <expInterpolate>1</expInterpolate>
-        <time>00:00:03:066</time>
-        <value>0.596491218</value>
+        <easefunc>4</easefunc>
+        <easetype>2</easetype>
+        <time>00:00:23:272</time>
+        <value>0.000000000</value>
     </key>
     <key>
-        <type>1</type>
-        <phaseShift>0.000000000</phaseShift>
-        <amplitude>1.000000000</amplitude>
-        <frequency>100.000000000</frequency>
-        <seed>0.000000000</seed>
-        <center>0.000000000</center>
-        <interpolate>1</interpolate>
-        <expInterpolate>1</expInterpolate>
-        <time>1193:02:47:287</time>
-        <value>0.333333313</value>
+        <easefunc>4</easefunc>
+        <easetype>2</easetype>
+        <time>00:00:26:236</time>
+        <value>0.000000000</value>
+    </key>
+    <key>
+        <easefunc>4</easefunc>
+        <easetype>2</easetype>
+        <time>00:00:29:016</time>
+        <value>0.082878947</value>
+    </key>
+    <key>
+        <easefunc>0</easefunc>
+        <easetype>0</easetype>
+        <time>00:00:41:828</time>
+        <value>0.135223567</value>
+    </key>
+    <key>
+        <easefunc>0</easefunc>
+        <easetype>0</easetype>
+        <time>00:00:41:877</time>
+        <value>0.000000000</value>
+    </key>
+    <key>
+        <easefunc>4</easefunc>
+        <easetype>0</easetype>
+        <time>00:00:42:269</time>
+        <value>0.000000000</value>
+    </key>
+    <key>
+        <easefunc>0</easefunc>
+        <easetype>0</easetype>
+        <time>00:00:46:454</time>
+        <value>0.117775381</value>
+    </key>
+    <key>
+        <easefunc>0</easefunc>
+        <easetype>0</easetype>
+        <time>00:00:48:837</time>
+        <value>0.135223567</value>
+    </key>
+    <key>
+        <easefunc>0</easefunc>
+        <easetype>0</easetype>
+        <time>00:00:49:046</time>
+        <value>0.623773217</value>
     </key>
 </keyframes>

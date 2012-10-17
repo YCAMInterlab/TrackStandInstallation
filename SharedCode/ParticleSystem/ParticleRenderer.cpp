@@ -9,7 +9,8 @@ ParticleRenderer::ParticleRenderer(){
 	minX = 0;
 	maxX = 100;
 	points = NULL;
-	
+	bottomClip = 0;
+	maxFlicker = 1.0;
 }
 
 void ParticleRenderer::setup(int maxParticles){
@@ -52,7 +53,8 @@ void ParticleRenderer::update(){
 	totalParticles = 0;
 	vector<int> validIndices;
 	for(int i = 0; i < points->size(); i++){
-		if( (*points)[i].z > 0){
+		//if( (*points)[i].z > 0 && (*points)[i].y < bottomClip){
+		if( (*points)[i].z > 0 ){
 			validIndices.push_back(i);
 		}
 	}
@@ -90,8 +92,6 @@ void ParticleRenderer::update(){
 		emitters[i].update();
 	}
 	
-	//cout << "updated " << meshBuilder.validVertIndices.size() << endl;
-	
 	copyVertsToMesh();
 	
 }
@@ -105,19 +105,9 @@ void ParticleRenderer::draw(){
 	
 	kinect->getNode().transformGL();
 	
-	ofScale(1, -1, -1);
+	ofScale(1, -1, 1);
 	ofScale(0.001, 0.001, 0.001);
 
-	ofMesh m;
-	m.getVertices().assign(points->begin(), points->end());
-//	for(int i = 0; i < points->size(); i++){
-//		//for(int i = 0; i < meshBuilder.validVertIndices.size(); i++){
-//		ofVec3f* pos = (*points)[i];
-//		m.addVertex(*pos);
-//	}
-	m.drawVertices();
-	
-	
 	ofEnableAlphaBlending();
 	//		if(useShaderToggle){
 	if(false){
@@ -132,7 +122,7 @@ void ParticleRenderer::draw(){
 	}
 	else{
 		//glPointSize(masterTimeline.getValue("Min Point Size"));
-		glPointSize(1.5);
+		glPointSize(3);
 	}
 	
 	//		if(useColors && colorPalette.isAllocated()){
@@ -147,7 +137,8 @@ void ParticleRenderer::draw(){
 	//	}
 	
 	//ofEnableBlendMode(OF_BLENDMODE_ADD);
-	ofEnableBlendMode(OF_BLENDMODE_SCREEN);
+//	ofEnableBlendMode(OF_BLENDMODE_SCREEN);
+	ofEnableAlphaBlending();
 	glEnable(GL_POINT_SMOOTH); // makes circular points
 	glEnable(GL_VERTEX_PROGRAM_POINT_SIZE_ARB);	// allows per-point size
 	//		glPointSize(4);
@@ -163,10 +154,19 @@ void ParticleRenderer::draw(){
 		pointCloudDOF.end();
 	}
 	
+	kinect->getNode().restoreTransformGL();
+	
 	glPopAttrib();
 	glPopMatrix();
 	ofPopStyle();
-	
+}
+
+void ParticleRenderer::setAudioData(vector<float>& fft, int minBin, int maxBin){
+	for(int i = 0; i < emitters.size(); i++){
+		emitters[i].audioData = &fft;
+		emitters[i].minBin = minBin;
+		emitters[i].maxBin = maxBin;
+	}
 }
 
 void ParticleRenderer::copyVertsToMesh(){
@@ -177,7 +177,15 @@ void ParticleRenderer::copyVertsToMesh(){
 	for(int i = 0; i < emitters.size(); i++){
 		for(int v = 0; v < emitters[i].particles.size(); v++){
 			meshVertices[meshIndex] = emitters[i].particles[v].position;
-			float color = emitters[i].particles[v].energy / emitters[i].particles[v].initialEnergy;
+//			float flicker = (sin(emitters[i].particles[v].flickerPeriod*ofGetElapsedTimef()+emitters[i].particles[v].flickerPeriod)*.5+.5);
+			//flicker *= emitters[i].particles[v].flickerMax;
+			//flicker = 1-flicker;
+			float color = ofMap(emitters[i].particles[v].energy / emitters[i].particles[v].initialEnergy, .4, 0, 1.0, 0,true);
+//			float color = emitters[i].particles[v].flickerMax;
+//			float color = flicker;
+//			if (emitters[i].particles[v].flickerMax > 0) {
+//				cout << "flicker max is " << emitters[i].particles[v].flickerMax << endl;
+//			}
 			meshColors[meshIndex] = ofFloatColor(emitters[i].particles[v].color,color);
 			//            if(useColors){
 			//                meshTexCoords[meshIndex] = emitters[i].particles[v].texcoord;

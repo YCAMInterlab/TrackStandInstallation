@@ -39,12 +39,16 @@ class ParticleRenderer {
 	float lifeSpan;
 	float lifeSpanVariance;
 
+	float bottomClip;
+	float maxFlicker; //betweeen 0 and one then based on particle
+	
 	ParticleRenderer();
 	
 	void setup(int maxParticles);
 	
 	void update();
 	void draw();
+	void setAudioData(vector<float>& fft, int minBin, int maxBin);
 	
 	void copyVertsToMesh();
 	

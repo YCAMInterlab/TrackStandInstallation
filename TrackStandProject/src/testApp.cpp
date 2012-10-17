@@ -2,6 +2,7 @@
 
 //--------------------------------------------------------------
 void testApp::setup(){
+	
 	ofBackground(0);
 	ofEnableAlphaBlending();
 	ofSetFrameRate(60);
@@ -31,28 +32,36 @@ void testApp::setup(){
 	}
 	else{
 		kinect[0] = new Kinect(0, false);
-		kinect[1] = new Kinect(1, false);
+//		kinect[1] = new Kinect(1, false);
 		kinects.add(*kinect[0]);	
-		kinects.add(*kinect[1]);
+//		kinects.add(*kinect[1]);
 		
 		trackController.particleRenderer1->points = &kinect[0]->getObjectPoints();
-		trackController.particleRenderer2->points = &kinect[1]->getObjectPoints();
+//		trackController.particleRenderer2->points = &kinect[1]->getObjectPoints();
 		trackController.particleRenderer1->kinect = kinect[0];
-		trackController.particleRenderer2->kinect = kinect[1];
+//		trackController.particleRenderer2->kinect = kinect[1];
 		
-		float widthPerSection = kinects.getWidth() / 4;
+//		float widthPerSection = kinects.getWidth() / 4;
 //		for(int i = 0; i < 4; i++){
 //			trackController.particleRenderers[i]->minX = widthPerSection;
 //			trackController.particleRenderers[i]->points = &kinects.highFiveTagTeam();
 //		}
-		
 	}
+	
+	globalparams.setup();
+	globalparams.addCurves("bottom1", ofRange(-100, 1000));
+	globalparams.addCurves("bottom2", ofRange(-100, 1000));
+	globalparams.toggleShow();
+	
 	cam.setup();
 	cam.setFarClip(100);
 	cam.setNearClip(.01);
 	cam.autosavePosition = true;
 	cam.loadCameraPosition();
-	cam.speed *= .05;
+	cam.speed *= .02;
+	
+	
+
 }
 
 //--------------------------------------------------------------
@@ -60,9 +69,9 @@ void testApp::update(){
 
 	kinects.update();
 	
-	vector<ofVec2f> positions;
-	positions.push_back( ofVec2f(mouseX, mouseY) );
-	trackController.setPositions(positions);
+//	vector<ofVec2f> positions;
+//	positions.push_back( ofVec2f(mouseX, mouseY) );
+//	trackController.setPositions(positions);
 
 	if(useTestRecording){
 		if(depthSequence.isFrameNew()){
@@ -70,7 +79,11 @@ void testApp::update(){
 		}
 	}
 
-	trackController.setPositions(this->kinects.getPeopleInScreenSpace());
+	trackController.particleRenderer1->bottomClip = globalparams.getValue("bottom1");
+	trackController.particleRenderer2->bottomClip = globalparams.getValue("bottom2");
+	vector<ofVec2f> positions = this->kinects.getPeopleInScreenSpace();
+	positions.push_back(ofVec2f(mouseX, mouseY) );
+	trackController.setPositions(positions);
 	trackController.update();
 	
 }
@@ -82,16 +95,20 @@ void testApp::draw(){
 //		recordingTest.setOffset(trackController.drawRect.getBottomLeft());
 //		recordingTest.draw();
 	}
-	
 	previewRect = ofRectangle(trackController.drawRect.getTopRight(),
 										  trackController.drawRect.width,
 										  ofGetHeight());
+
+	globalparams.setOffset(previewRect.getTopLeft());
+	globalparams.draw();
+	
 	cam.begin(previewRect);
-//	particleRenderer.draw();
 	trackController.drawParticles();
 	cam.end();
 	
-	ofDrawBitmapString(ofToString(ofGetFrameRate(),2), ofGetWidth() - 100, ofGetHeight()-40);
+	//kinects.drawFbo();
+	ofSetColor(255);
+	ofDrawBitmapString(ofToString(ofGetFrameRate(),2), ofGetWidth() - 100, ofGetHeight()-100);
 }
 
 //--------------------------------------------------------------
@@ -119,6 +136,10 @@ void testApp::keyReleased(int key){
 	if(key == '1'){
 		trackController.fitToScreenHeight();
 	}
+	if(key == 'G'){
+		trackController.toggleShowTimelines();
+	}
+
 }
 
 //--------------------------------------------------------------

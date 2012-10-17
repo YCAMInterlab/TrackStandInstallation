@@ -8,6 +8,7 @@
 #include "KinectSet.h"
 #include "Kinect.h"
 #include "ofxRGBDMeshBuilder.h"
+#include "ofxGui.h"
 
 class testApp : public ofBaseApp{
   public:
@@ -26,6 +27,10 @@ class testApp : public ofBaseApp{
 	void gotMessage(ofMessage msg);
 	void exit();
 
+	ofxPanel smallGui;
+	ofxFloatSlider bottom1;
+    ofxFloatSlider bottom2;
+
 	ofxGameCamera cam;
 	ofxGrabCam grabcam;
 	
@@ -34,6 +39,7 @@ class testApp : public ofBaseApp{
 	ofRectangle previewRect;
 	
 	bool useTestRecording;
+	ofxTimeline globalparams;
 	ofxTimeline recordingTest;
 	ofxTLDepthImageSequence depthSequence;
 	

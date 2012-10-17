@@ -1,4 +1,16 @@
 <positions>
+    <element name="bottom1">
+        <x>1920.000000000</x>
+        <y>52.000000000</y>
+        <width>3840.000000000</width>
+        <height>123.000000000</height>
+    </element>
+    <element name="bottom2">
+        <x>1920.000000000</x>
+        <y>199.000000000</y>
+        <width>3840.000000000</width>
+        <height>134.000000000</height>
+    </element>
     <element name="depth sequence">
         <x>0.000000000</x>
         <y>18.000000000</y>
