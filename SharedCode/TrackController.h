@@ -31,6 +31,7 @@ class TrackController {
 	ParticleRenderer* particleRenderer1;
 	ParticleRenderer* particleRenderer2;
 	
+	void updateSystemToTimeline(ofxTimeline* timeline);
 	vector<ofxTLAudioTrack*> audioTracks;
 	void toggleFooters();
 	void togglePlayForTrackAtPoint(ofVec2f point);

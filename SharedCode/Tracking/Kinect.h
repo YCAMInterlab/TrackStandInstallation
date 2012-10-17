@@ -6,7 +6,7 @@
 #include "Device.h"
 #include "ofxKinect.h"
 
-#define STEP 8
+#define STEP 4
 
 class Kinect : public Device {
 public:

@@ -52,7 +52,8 @@ void ParticleRenderer::update(){
 	totalParticles = 0;
 	vector<int> validIndices;
 	for(int i = 0; i < points->size(); i++){
-		if( (*points)[i].z > 0 && (*points)[i].y < bottomClip){
+		//if( (*points)[i].z > 0 && (*points)[i].y < bottomClip){
+		if( (*points)[i].z > 0 ){
 			validIndices.push_back(i);
 		}
 	}
@@ -125,7 +126,7 @@ void ParticleRenderer::draw(){
 	}
 	else{
 		//glPointSize(masterTimeline.getValue("Min Point Size"));
-		glPointSize(1.5);
+		glPointSize(3);
 	}
 	
 	//		if(useColors && colorPalette.isAllocated()){
@@ -140,7 +141,8 @@ void ParticleRenderer::draw(){
 	//	}
 	
 	//ofEnableBlendMode(OF_BLENDMODE_ADD);
-	ofEnableBlendMode(OF_BLENDMODE_SCREEN);
+//	ofEnableBlendMode(OF_BLENDMODE_SCREEN);
+	ofEnableAlphaBlending();
 	glEnable(GL_POINT_SMOOTH); // makes circular points
 	glEnable(GL_VERTEX_PROGRAM_POINT_SIZE_ARB);	// allows per-point size
 	//		glPointSize(4);
@@ -172,7 +174,7 @@ void ParticleRenderer::copyVertsToMesh(){
 	for(int i = 0; i < emitters.size(); i++){
 		for(int v = 0; v < emitters[i].particles.size(); v++){
 			meshVertices[meshIndex] = emitters[i].particles[v].position;
-			float color = emitters[i].particles[v].energy / emitters[i].particles[v].initialEnergy;
+			float color = ofMap(emitters[i].particles[v].energy / emitters[i].particles[v].initialEnergy, .4, 0, 1.0, 0,true);
 			meshColors[meshIndex] = ofFloatColor(emitters[i].particles[v].color,color);
 			//            if(useColors){
 			//                meshTexCoords[meshIndex] = emitters[i].particles[v].texcoord;

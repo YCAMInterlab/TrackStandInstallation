@@ -31,15 +31,15 @@ void testApp::setup(){
 //		}
 	}
 	else{
-		kinect[0] = new Kinect(0, true);
-		kinect[1] = new Kinect(1, true);
+		kinect[0] = new Kinect(0, false);
+//		kinect[1] = new Kinect(1, false);
 		kinects.add(*kinect[0]);	
-		kinects.add(*kinect[1]);
+//		kinects.add(*kinect[1]);
 		
 		trackController.particleRenderer1->points = &kinect[0]->getObjectPoints();
-		trackController.particleRenderer2->points = &kinect[1]->getObjectPoints();
+//		trackController.particleRenderer2->points = &kinect[1]->getObjectPoints();
 		trackController.particleRenderer1->kinect = kinect[0];
-		trackController.particleRenderer2->kinect = kinect[1];
+//		trackController.particleRenderer2->kinect = kinect[1];
 		
 //		float widthPerSection = kinects.getWidth() / 4;
 //		for(int i = 0; i < 4; i++){
@@ -102,11 +102,11 @@ void testApp::draw(){
 	globalparams.draw();
 	
 	cam.begin(previewRect);
-//	trackController.drawParticles();
+	trackController.drawParticles();
 	cam.end();
 	
 	//kinects.drawFbo();
-
+	ofSetColor(255);
 	ofDrawBitmapString(ofToString(ofGetFrameRate(),2), ofGetWidth() - 100, ofGetHeight()-40);
 }
 
