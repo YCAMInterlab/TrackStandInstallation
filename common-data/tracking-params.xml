@@ -1,8 +1,8 @@
 <Height>5.000000000</Height>
-<Width>4.000000000</Width>
+<Width>4.900000095</Width>
 <Depth>8.000000000</Depth>
 <Resolution>128</Resolution>
-<Minimum area>4</Minimum area>
+<Minimum area>3</Minimum area>
 <Maximum area>128</Maximum area>
 <Threshold>50</Threshold>
 <Persistence>15</Persistence>
