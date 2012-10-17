@@ -1,49 +1,55 @@
 <positions>
     <element name="birth rate">
         <x>0.000000000</x>
-        <y>1332.714233398</y>
+        <y>519.714294434</y>
         <width>1920.000000000</width>
         <height>38.571430206</height>
     </element>
+    <element name="flicker">
+        <x>0.000000000</x>
+        <y>703.999938965</y>
+        <width>1920.000000000</width>
+        <height>40.000000000</height>
+    </element>
     <element name="gravity amp">
         <x>0.000000000</x>
-        <y>1478.428466797</y>
+        <y>665.428527832</y>
         <width>1920.000000000</width>
         <height>38.571430206</height>
     </element>
     <element name="life span">
         <x>0.000000000</x>
-        <y>1371.285644531</y>
+        <y>558.285705566</y>
         <width>1920.000000000</width>
         <height>38.571430206</height>
     </element>
     <element name="perlin amp">
         <x>0.000000000</x>
-        <y>1409.857055664</y>
+        <y>596.857116699</y>
         <width>1920.000000000</width>
         <height>38.571430206</height>
     </element>
     <element name="perlin density">
         <x>0.000000000</x>
-        <y>1448.428466797</y>
+        <y>635.428527832</y>
         <width>1920.000000000</width>
         <height>30.000000000</height>
     </element>
     <element name="primary color">
         <x>0.000000000</x>
-        <y>1217.000000000</y>
+        <y>404.000000000</y>
         <width>1920.000000000</width>
         <height>38.571430206</height>
     </element>
     <element name="secondary color">
         <x>0.000000000</x>
-        <y>1255.571411133</y>
+        <y>442.571441650</y>
         <width>1920.000000000</width>
         <height>38.571430206</height>
     </element>
     <element name="sound">
         <x>0.000000000</x>
-        <y>1294.142822266</y>
+        <y>481.142883301</y>
         <width>1920.000000000</width>
         <height>38.571430206</height>
     </element>

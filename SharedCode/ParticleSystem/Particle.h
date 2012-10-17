@@ -21,6 +21,9 @@ class Particle {
         connectorEnergy = 0;
 		birthTime = 0;
         hasType = false;
+		flickerPeriod = 0;
+		flickerPhase = 0;
+		flickerMax = 0;
     }
     
     void update(){
@@ -48,7 +51,10 @@ class Particle {
     ofVec3f force;
     ofVec2f texcoord;
     ofVec3f direction;
-    
+	
+	float flickerPeriod;
+	float flickerPhase;
+    float flickerMax;
 };
 
 

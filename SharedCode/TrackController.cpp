@@ -48,6 +48,7 @@ void TrackController::setup(int numTracks){
 		timeline->addCurves("perlin amp", ofRange(0, 10.0));
 		timeline->addCurves("perlin density", ofRange(0, 1000));
 		timeline->addCurves("gravity amp", ofRange(-10.0, 10.0), 0.0);
+		timeline->addLFO("flicker");
 		timelines.push_back(timeline);
 	}
 	
@@ -55,6 +56,7 @@ void TrackController::setup(int numTracks){
 	particleRenderer1->setup(30000);
 	particleRenderer2 = new ParticleRenderer();
 	particleRenderer2->setup(25000);
+	currentFFT = NULL;
 
 }
 
@@ -62,6 +64,12 @@ void TrackController::toggleFooters(){
 	for(int i = 0; i < timelines.size(); i++){
 		bool showTimeControls = timelines[i]->toggleShowFooters();
 		timelines[i]->setShowTimeControls(showTimeControls);
+	}
+}
+
+void TrackController::toggleShowTimelines(){
+	for(int i = 0; i < timelines.size(); i++){
+		timelines[i]->toggleShow();
 	}
 }
 
@@ -119,12 +127,6 @@ void TrackController::update(){
 	for(int i  = 0; i < timelines.size(); i++){
 		if(timelines[i]->getIsPlaying()){
 			foundPlaying = true;
-//			particleRenderers[i]->perlinForce->amplitude = timelines[i]->getValue("perlin amp");
-//			particleRenderers[i]->gravityForce->gravity = timelines[i]->getValue("gravity amp");
-//			particleRenderers[i]->primaryColor   = timelines[i]->getColor("primary color");
-//			particleRenderers[i]->secondaryColor = timelines[i]->getColor("secondary color");
-//			particleRenderers[i]->birthRate = timelines[i]->getValue("birth rate");
-//			particleRenderers[i]->lifeSpan = timelines[i]->getValue("life span");
 			updateSystemToTimeline(timelines[i]);
 		}
 	}
@@ -149,6 +151,7 @@ void TrackController::updateSystemToTimeline(ofxTimeline* timeline){
 	particleRenderer1->secondaryColor = timeline->getColor("secondary color");
 	particleRenderer1->birthRate = timeline->getValue("birth rate");
 	particleRenderer1->lifeSpan = timeline->getValue("life span");
+	particleRenderer1->maxFlicker = timeline->getValue("flicker");
 	
 	particleRenderer2->perlinForce->amplitude = timeline->getValue("perlin amp");
 	particleRenderer2->perlinForce->density = timeline->getValue("perlin density");
@@ -157,7 +160,14 @@ void TrackController::updateSystemToTimeline(ofxTimeline* timeline){
 	particleRenderer2->secondaryColor = timeline->getColor("secondary color");
 	particleRenderer2->birthRate = timeline->getValue("birth rate");
 	particleRenderer2->lifeSpan = timeline->getValue("life span");
-
+	particleRenderer2->maxFlicker = timeline->getValue("flicker");
+	
+//	if(timeline->getTrack("sound") != currentFFT){
+//		currentFFT = (ofxTLAudioTrack*)timeline->getTrack("sound");
+//		int bins = 128;
+//		particleRenderer1->setAudioData(currentFFT->getFFTSpectrum(bins), bins*.1, bins*.5);
+//	}
+	
 }
 
 void TrackController::setPositions(vector<ofVec2f> positions){

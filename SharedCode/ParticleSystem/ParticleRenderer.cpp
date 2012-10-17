@@ -10,6 +10,7 @@ ParticleRenderer::ParticleRenderer(){
 	maxX = 100;
 	points = NULL;
 	bottomClip = 0;
+	maxFlicker = 1.0;
 }
 
 void ParticleRenderer::setup(int maxParticles){
@@ -107,11 +108,6 @@ void ParticleRenderer::draw(){
 	ofScale(1, -1, 1);
 	ofScale(0.001, 0.001, 0.001);
 
-	ofMesh m;
-	m.getVertices().assign(points->begin(), points->end());
-	m.drawVertices();
-	
-	
 	ofEnableAlphaBlending();
 	//		if(useShaderToggle){
 	if(false){
@@ -163,7 +159,14 @@ void ParticleRenderer::draw(){
 	glPopAttrib();
 	glPopMatrix();
 	ofPopStyle();
-	
+}
+
+void ParticleRenderer::setAudioData(vector<float>& fft, int minBin, int maxBin){
+	for(int i = 0; i < emitters.size(); i++){
+		emitters[i].audioData = &fft;
+		emitters[i].minBin = minBin;
+		emitters[i].maxBin = maxBin;
+	}
 }
 
 void ParticleRenderer::copyVertsToMesh(){
@@ -174,7 +177,15 @@ void ParticleRenderer::copyVertsToMesh(){
 	for(int i = 0; i < emitters.size(); i++){
 		for(int v = 0; v < emitters[i].particles.size(); v++){
 			meshVertices[meshIndex] = emitters[i].particles[v].position;
+//			float flicker = (sin(emitters[i].particles[v].flickerPeriod*ofGetElapsedTimef()+emitters[i].particles[v].flickerPeriod)*.5+.5);
+			//flicker *= emitters[i].particles[v].flickerMax;
+			//flicker = 1-flicker;
 			float color = ofMap(emitters[i].particles[v].energy / emitters[i].particles[v].initialEnergy, .4, 0, 1.0, 0,true);
+//			float color = emitters[i].particles[v].flickerMax;
+//			float color = flicker;
+//			if (emitters[i].particles[v].flickerMax > 0) {
+//				cout << "flicker max is " << emitters[i].particles[v].flickerMax << endl;
+//			}
 			meshColors[meshIndex] = ofFloatColor(emitters[i].particles[v].color,color);
 			//            if(useColors){
 			//                meshTexCoords[meshIndex] = emitters[i].particles[v].texcoord;

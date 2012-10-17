@@ -33,6 +33,7 @@ class TrackController {
 	
 	void updateSystemToTimeline(ofxTimeline* timeline);
 	vector<ofxTLAudioTrack*> audioTracks;
+	void toggleShowTimelines();
 	void toggleFooters();
 	void togglePlayForTrackAtPoint(ofVec2f point);
 	void fitToScreenHeight();
@@ -41,7 +42,7 @@ class TrackController {
   protected:
 
 	float timelineWidth;
-	
+	ofxTLAudioTrack* currentFFT;
 	vector<ofVec2f> people;
 };
 

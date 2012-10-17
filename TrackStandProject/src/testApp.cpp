@@ -51,7 +51,8 @@ void testApp::setup(){
 	globalparams.setup();
 	globalparams.addCurves("bottom1", ofRange(-100, 1000));
 	globalparams.addCurves("bottom2", ofRange(-100, 1000));
-
+	globalparams.toggleShow();
+	
 	cam.setup();
 	cam.setFarClip(100);
 	cam.setNearClip(.01);
@@ -136,8 +137,9 @@ void testApp::keyReleased(int key){
 		trackController.fitToScreenHeight();
 	}
 	if(key == 'G'){
-		globalparams.toggleShow();
+		trackController.toggleShowTimelines();
 	}
+
 }
 
 //--------------------------------------------------------------
