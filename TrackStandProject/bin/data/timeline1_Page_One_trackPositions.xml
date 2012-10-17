@@ -1,50 +1,50 @@
 <positions>
     <element name="birth rate">
         <x>0.000000000</x>
-        <y>385.714324951</y>
-        <width>960.000000000</width>
+        <y>1032.714233398</y>
+        <width>1920.000000000</width>
         <height>38.571430206</height>
     </element>
     <element name="gravity amp">
         <x>0.000000000</x>
-        <y>501.428649902</y>
-        <width>960.000000000</width>
+        <y>1178.428466797</y>
+        <width>1920.000000000</width>
         <height>38.571430206</height>
     </element>
     <element name="life span">
         <x>0.000000000</x>
-        <y>424.285766602</y>
-        <width>960.000000000</width>
+        <y>1071.285644531</y>
+        <width>1920.000000000</width>
         <height>38.571430206</height>
     </element>
     <element name="perlin amp">
         <x>0.000000000</x>
-        <y>462.857208252</y>
-        <width>960.000000000</width>
+        <y>1109.857055664</y>
+        <width>1920.000000000</width>
         <height>38.571430206</height>
     </element>
     <element name="perlin density">
         <x>0.000000000</x>
-        <y>554.000000000</y>
-        <width>840.000000000</width>
+        <y>1148.428466797</y>
+        <width>1920.000000000</width>
         <height>30.000000000</height>
     </element>
     <element name="primary color">
         <x>0.000000000</x>
-        <y>270.000000000</y>
-        <width>960.000000000</width>
+        <y>917.000000000</y>
+        <width>1920.000000000</width>
         <height>38.571430206</height>
     </element>
     <element name="secondary color">
         <x>0.000000000</x>
-        <y>308.571441650</y>
-        <width>960.000000000</width>
+        <y>955.571411133</y>
+        <width>1920.000000000</width>
         <height>38.571430206</height>
     </element>
     <element name="sound">
         <x>0.000000000</x>
-        <y>347.142883301</y>
-        <width>960.000000000</width>
+        <y>994.142822266</y>
+        <width>1920.000000000</width>
         <height>38.571430206</height>
     </element>
     <element name="spin force">
