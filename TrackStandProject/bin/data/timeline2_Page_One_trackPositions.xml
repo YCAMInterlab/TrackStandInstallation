@@ -1,55 +1,55 @@
 <positions>
     <element name="birth rate">
         <x>0.000000000</x>
-        <y>256.000000000</y>
+        <y>457.000000000</y>
         <width>1920.000000000</width>
         <height>0.000000000</height>
     </element>
     <element name="flicker">
         <x>0.000000000</x>
-        <y>286.000000000</y>
+        <y>457.000000000</y>
         <width>1920.000000000</width>
-        <height>0.000000000</height>
+        <height>59.333374023</height>
     </element>
     <element name="gravity amp">
         <x>0.000000000</x>
-        <y>280.000000000</y>
+        <y>457.000000000</y>
         <width>1920.000000000</width>
         <height>0.000000000</height>
     </element>
     <element name="life span">
         <x>0.000000000</x>
-        <y>262.000000000</y>
+        <y>457.000000000</y>
         <width>1920.000000000</width>
         <height>0.000000000</height>
     </element>
     <element name="perlin amp">
         <x>0.000000000</x>
-        <y>268.000000000</y>
+        <y>457.000000000</y>
         <width>1920.000000000</width>
         <height>0.000000000</height>
     </element>
     <element name="perlin density">
         <x>0.000000000</x>
-        <y>274.000000000</y>
+        <y>457.000000000</y>
         <width>1920.000000000</width>
         <height>0.000000000</height>
     </element>
     <element name="primary color">
         <x>0.000000000</x>
-        <y>238.000000000</y>
+        <y>390.333312988</y>
         <width>1920.000000000</width>
-        <height>0.000000000</height>
+        <height>33.333332062</height>
     </element>
     <element name="secondary color">
         <x>0.000000000</x>
-        <y>244.000000000</y>
+        <y>423.666656494</y>
         <width>1920.000000000</width>
-        <height>0.000000000</height>
+        <height>33.333332062</height>
     </element>
     <element name="sound">
         <x>0.000000000</x>
-        <y>250.000000000</y>
+        <y>457.000000000</y>
         <width>1920.000000000</width>
         <height>0.000000000</height>
     </element>

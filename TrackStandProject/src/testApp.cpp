@@ -108,7 +108,7 @@ void testApp::draw(){
 	
 	//kinects.drawFbo();
 	ofSetColor(255);
-	ofDrawBitmapString(ofToString(ofGetFrameRate(),2), ofGetWidth() - 100, ofGetHeight()-100);
+	//ofDrawBitmapString(ofToString(ofGetFrameRate(),2), ofGetWidth() - 100, ofGetHeight()-100);
 }
 
 //--------------------------------------------------------------
@@ -116,7 +116,7 @@ void testApp::keyPressed(int key){
 	
 }
 
-//--------------------------------------------------------------
+//-----------------------------------G---------------------------
 void testApp::keyReleased(int key){
 	if(key == 'b'){
 		trackController.editMode = !trackController.editMode;

@@ -41,6 +41,8 @@ void TrackController::setup(int numTracks){
 		timeline->setDurationInSeconds(t->getDuration());
 		timeline->addColorsWithPalette("primary color", palettes[i]);
 		timeline->addColorsWithPalette("secondary color", palettes[i]);
+		timeline->addCurves("color ratio");
+		
 		
 		timeline->addTrack("sound", t);
 		timeline->addCurves("birth rate", ofRange(0, 1.0));
@@ -49,6 +51,7 @@ void TrackController::setup(int numTracks){
 		timeline->addCurves("perlin density", ofRange(0, 1000));
 		timeline->addCurves("gravity amp", ofRange(-10.0, 10.0), 0.0);
 		timeline->addLFO("flicker");
+		timeline->setAutosave(false);
 		timelines.push_back(timeline);
 	}
 	
@@ -107,7 +110,7 @@ void TrackController::draw(){
 	ofSetColor(255, 100);
 	if(!editMode){
 		for (int i=0; i<this->people.size(); i++) {
-			ofCircle(this->people[i].x, this->people[i].y, 30);
+		//	ofCircle(this->people[i].x, this->people[i].y, 30);
 		}
 	}
 	ofPopStyle();
