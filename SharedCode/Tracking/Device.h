@@ -27,6 +27,7 @@ public:
 	virtual ofTexture & getRgbTexture() = 0;
 	
 	virtual vector<ofVec3f> & getObjectPoints() = 0;
+	virtual vector<ofVec3f> getWorldPoints() = 0;
 protected:
 	int index;
 #ifdef USE_GRABSCENE

@@ -83,7 +83,7 @@ void KinectSet::update() {
 		(**it).update();
 	}
 	updateTracking();
-	//updateWorldPoints();
+	updateWorldPoints();
 }
 
 //--------
@@ -119,35 +119,31 @@ void KinectSet::updateTracking() {
 //--------
 void KinectSet::updateWorldPoints() {
 	activePoints.clear();
-	//prep output points
-	//#pragma omp parallel for
+	
+	//copy from kinects
+	ofVec3f *worldOut =  & this->combinedPointsInWorldSpace[0];
+	int offset = 0;
 	for (int i=0; i<this->devices.size(); i++) {
-		int offset = 0;
-		for (int j=0; j<i; j++)
-			offset += this->devices[j]->outputPointCount();
-		ofVec3f * world = & this->combinedPointsInWorldSpace[offset];
-		ofVec3f * object = & this->devices[i]->getObjectPoints()[0];
+		Device & kinect = * this->devices[i];
+		const vector<ofVec3f> world = kinect.getWorldPoints();
+		memcpy(worldOut + offset * sizeof(ofVec3f), & world[0], world.size() * sizeof(ofVec3f));
+		worldOut += world.size();
+		offset += world.size();
+	}
+	
+	//check if inside region
+	worldOut =  & this->combinedPointsInWorldSpace[0];
+#pragma omp parallel for
+	for (int i=0; i<this->combinedPointsInWorldSpace.size(); i++) {
+		const ofVec3f regionSpace = *worldOut * this->getNode().getGlobalTransformMatrix().getInverse() * this->region;
 		
-		ofMatrix4x4 flip;
-		flip.makeScaleMatrix(-1.0f, 1.0f, 1.0f);
-		ofMatrix4x4 T = this->devices[i]->getGlobalTransformMatrix().getInverse();
-		ofMatrix4x4 S;
-		S.makeScaleMatrix(0.001, -0.001, -0.001);
-		
-		ofMatrix4x4 upScale;
-		upScale.makeScaleMatrix(ofVec3f(1000.0f, 1000.0f, 1000.0f));
-		T = (upScale.getInverse() * T) * (S * upScale);
-		
-		ofVec3f translate = (i==0) ? ofVec3f(-0.170919, 0.886452, 0) : ofVec3f(5.03754, 0.497932, -0.107265);
-		
-		for (int point=0; point < this->devices[i]->outputPointCount(); point++) {
-			*world = (*object * T) * 1000.0f;
-			if (true || world->y > 0 && world->x < 4000.0f && object->z > 0.0f) {
-				activePoints.push_back(world);
-			}
-			*world++;
-			*object++;
+		if (regionSpace.x >= -1.0f && regionSpace.x <= 1.0f &&
+			regionSpace.y >= -1.0f && regionSpace.y <= 1.0f &&
+			regionSpace.z >= -1.0f && regionSpace.z <= 1.0f) {
+#pragma omp atomic
+			this->activePoints.push_back(worldOut);
 		}
+		worldOut++;
 	}
 }
 
@@ -253,4 +249,21 @@ vector<ofVec2f> KinectSet::getPeopleInScreenSpace() {
 	}
 	
 	return result;
+}
+
+//--------
+void KinectSet::drawWorldSpacePoints() {
+	ofMesh mesh;
+	
+	//mesh.getVertices().assign(this->combinedPointsInWorldSpace.begin(), this->combinedPointsInWorldSpace.end());
+	
+	vector<ofVec3f*>::const_iterator it;
+	for(it = this->activePoints.begin(); it != this->activePoints.end(); it++) {
+		mesh.addVertex(**it);
+	}
+	
+	ofPushStyle();
+	ofColor(200, 100, 100);
+	mesh.drawVertices();
+	ofPopStyle();
 }

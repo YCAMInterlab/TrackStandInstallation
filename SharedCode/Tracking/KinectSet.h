@@ -23,12 +23,13 @@ public:
 	void load();
 	void save();
 	string getFilename() { return "../../../common-data/tracking-params.xml"; }
-	vector<ofVec3f*>& highFiveTagTeam() { return this->activePoints; }
+	vector<ofVec3f*>& getActivePoints() { return this->activePoints; }
 	int getWidth() const { return this->width; }
 	vector<Device*> & getDevices() { return this->devices; }
 	void close();
 	void drawFbo() { this->fromAbove.getTextureReference().draw(0,0); }
 	vector<ofVec2f> getPeopleInScreenSpace();
+	void drawWorldSpacePoints();
 protected:
 	void updateRegion(float & dummy);
 	void updateResolution(int & dummy);

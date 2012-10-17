@@ -6,7 +6,7 @@
 #include "Device.h"
 #include "ofxKinect.h"
 
-#define STEP 8
+#define STEP 2
 
 class Kinect : public Device {
 public:
@@ -21,7 +21,7 @@ public:
 	ofTexture & getRgbTexture();
 	
 	vector<ofVec3f> & getObjectPoints();
-	
+	vector<ofVec3f> getWorldPoints();
 protected:
 	void updatePointCloud();
 	void updateAngle(float &);
@@ -29,6 +29,7 @@ protected:
 	ofNode origin;
 #ifdef USE_GRABSCENE
 	ofParameter<float> angle;
+	ofParameter<bool> useRgb;
 #else
 	float angle;
 #endif
